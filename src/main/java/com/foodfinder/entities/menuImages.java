@@ -9,13 +9,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+/**
+ * @author Luis Montoya
+ * @version 1.0
+ * 
+ *          Clase que contiene el método y variables de menuImages
+ *          
+ */
 
 @Data
 @Builder
@@ -38,7 +46,7 @@ public class menuImages implements Serializable {
 	private byte[] imagen;
 	
 	@JoinColumn(name = "id_menu", referencedColumnName = "id_menu")
-	@OneToOne
+	@ManyToOne
 	private menu menu;
 	
 }
