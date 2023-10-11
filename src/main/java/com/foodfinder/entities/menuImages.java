@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -46,7 +46,7 @@ public class menuImages implements Serializable {
 	private byte[] imagen;
 	
 	@JoinColumn(name = "id_menu", referencedColumnName = "id_menu")
-	@OneToMany
+	@ManyToOne
 	private menu menu;
 	
 }
