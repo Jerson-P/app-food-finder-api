@@ -19,6 +19,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author nicope
+ * @version 1.0
+ * 
+ *          Clase Entity de tipo (user) que representa un registro de
+ *          la BD. Cada instancia de esta entidad representa un registro de la
+ *          BD. Cada atributo representa una columna de la BD. Los métodos de
+ *          esta clase se usan para manipular los datos. (Anotación @Data)
+ * 
+ *          Implementa la interfaz (Serializable) la cual permite convertir un
+ *          objeto (instancia) en ceros y uno, para de esta manera pueda ser
+ *          transportado, almacenado y reconstruido en otra plataforma o
+ *          sistema.
+ * 
+ */
+
 @Data
 @Builder
 @NoArgsConstructor

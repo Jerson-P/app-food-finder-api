@@ -2,6 +2,7 @@ package com.foodfinder.entities;
 
 import java.io.Serializable;
 
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+/**
+ * @author Luis Montoya
+ * @version 1.0
+ * 
+ *          Clase que contiene el método y variables de menu
+ *          
+ */
 
 @Data
 @Builder
@@ -53,7 +62,7 @@ public class menu implements Serializable {
 	@OneToOne
 	private menuCategory categoria;
 	
-	/*@JoinColumn(name = "id_restaurante", referencedColumnName = "id_restaurante")
+	@JoinColumn(name = "id_restaurante", referencedColumnName = "id_restaurante")
 	@OneToOne
-	private Restaurant restaurant; */
+	private restaurant restaurant; 
 }
