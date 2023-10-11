@@ -24,6 +24,6 @@ import com.foodfinder.entities.user;
 @Repository
 public interface userRepository extends JpaRepository<user, Integer>{
 
-	Optional<user> findByUsuarioAndContrasenia(String user, String password);
+	//Optional<user> findByUsuarioAndContrasenia(String user, String password);
 	
 }
