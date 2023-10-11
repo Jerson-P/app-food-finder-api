@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
  * @author nicope
  * @version 1.0
  * 
- * Clase DTO que permite encapsular los datos de un objeto de tipo (user).
+ * Clase DTO que permite encapsular los datos de un objeto de tipo (Response).
  * Este DTO tiene varias ventajas como: 
  * Bajo acoplamiento entre las capaz de la aplicación
  * Optimización de la transferencia de datos.
@@ -21,15 +21,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class userDTO {
+public class ResponseDTO {
 
-	private Integer id;
-	private String user;
-	private String password;
-	private String name;
-	private String identificationType;
-	private Integer identification;
-	private String mail;
-	private String cellPhone;
-	private Boolean status;
+	private Integer statusCode;
+	private String message;
+	private Object objectResponse;
 }
