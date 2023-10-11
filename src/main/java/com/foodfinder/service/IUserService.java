@@ -6,5 +6,5 @@ import com.foodfinder.dtos.ResponseDTO;
 
 public interface IUserService {
 
-	public ResponseEntity<ResponseDTO> obetenerUsuarios();
+	public ResponseEntity<ResponseDTO> obtenerUsuarios();
 }
