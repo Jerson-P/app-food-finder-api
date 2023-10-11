@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.AllArgsConstructor;
@@ -34,8 +33,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "detalle_restaurante")
 @EntityListeners(AuditingEntityListener.class)
-@Where(clause = "activo = true")
-
 public class RestaurantDetail implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
