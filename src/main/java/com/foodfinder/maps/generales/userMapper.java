@@ -1,5 +1,9 @@
 package com.foodfinder.maps.generales;
 
-public class userMapper {
+import org.mapstruct.Mapper;
 
+@Mapper
+public interface userMapper {
+
+	
 }
