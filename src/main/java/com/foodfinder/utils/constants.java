@@ -1,6 +1,7 @@
 package com.foodfinder.utils;
 
-public class contanst {
+public class constants {
+
 	public static final String AUTENTACION_EXITOSA ="Se realizo la autenticación exitosamente";
 	public static final String CAMBIO_CLAVE_USUARIO_EXITOSA ="Se realizo el cambio de clave del usuario exitosamente";
 	public static final String POR_FAVOR_VERIFICAR_DATOS_INCORRECTO =" Por favor verificar datos incorrectos";
@@ -44,5 +45,4 @@ public class contanst {
 	public static final String NO_EXISTE_USUARIO ="Usuario no existe";
 
 	public static final String NO_SE_PROCESO_DOCUMENTO = "El documento no se proceso";
-
 }

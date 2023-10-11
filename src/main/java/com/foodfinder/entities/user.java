@@ -42,7 +42,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "usuarios")
 @EntityListeners(AuditingEntityListener.class)
-@Where(clause = "activo = true")
+@Where(clause = "estado = 1")
 public class user implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -71,7 +71,7 @@ public class user implements Serializable{
 	
 	@Basic(optional = false)
 	@Column(name = "identificacion")
-	private Integer identification;
+	private String identification;
 	
 	@Basic(optional = false)
 	@Column(name = "correo")
@@ -79,7 +79,7 @@ public class user implements Serializable{
 	
 	@Basic(optional = false)
 	@Column(name = "celular")
-	private Integer cellPhone;
+	private String cellPhone;
 	
 	@Basic(optional = false)
 	@Column(name = "estado")

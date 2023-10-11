@@ -1,6 +1,9 @@
 package com.foodfinder.maps.generales;
 
+import java.util.List;
+
 import org.mapstruct.InheritInverseConfiguration;
+import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -28,4 +31,6 @@ public interface userMapper {
 	
 	@InheritInverseConfiguration
 	user dtoToEntity(userDTO dto);
+	
+	List<userDTO> beanListToDtoList(List<user> lista);
 }

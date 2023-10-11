@@ -28,8 +28,8 @@ public class userDTO {
 	private String password;
 	private String name;
 	private String identificationType;
-	private Integer identification;
+	private String identification;
 	private String mail;
 	private String cellPhone;
-	private Boolean status;
+	private Integer status;
 }
