@@ -39,7 +39,7 @@ import lombok.NoArgsConstructor;
 @EntityListeners(AuditingEntityListener.class)
 @Where(clause = "activo = 1")
 
-public class restaurant implements Serializable{
+public class Restaurant implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -67,7 +67,7 @@ public class restaurant implements Serializable{
 	
 	@Basic(optional = false)
 	@Column(name = "nit")
-	private Integer nit;
+	private String nit;
 	
 	@Basic(optional = false)
 	@Column(name = "estado")
@@ -75,14 +75,14 @@ public class restaurant implements Serializable{
 	
 	@JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
 	@OneToOne
-	private restaurantCategory category;
+	private RestaurantCategory category;
 	
 	@JoinColumn(name = "id_detalle", referencedColumnName = "id_detalle")
 	@OneToOne
-	private restaurantDetail detail;
+	private RestaurantDetail detail;
 	
 	@JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
 	@OneToOne
-	private user user;
+	private User user;
 	
 }

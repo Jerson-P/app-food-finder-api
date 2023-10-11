@@ -3,7 +3,7 @@ package com.foodfinder.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.foodfinder.entities.restaurant;
+import com.foodfinder.entities.Restaurant;
 
 
 /**
@@ -15,6 +15,6 @@ import com.foodfinder.entities.restaurant;
  */
 
 @Repository
-public interface restaurantRepository extends JpaRepository<restaurant, Integer>{
+public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>{
 
 }

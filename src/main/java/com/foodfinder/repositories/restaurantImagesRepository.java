@@ -3,7 +3,7 @@ package com.foodfinder.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.foodfinder.entities.restaurantImages;
+import com.foodfinder.entities.RestaurantImages;
 
 /**
  * @author Jerson Peña
@@ -14,6 +14,6 @@ import com.foodfinder.entities.restaurantImages;
  */
 
 @Repository
-public interface restaurantImagesRepository extends JpaRepository<restaurantImages, Integer>{
+public interface RestaurantImagesRepository extends JpaRepository<RestaurantImages, Integer>{
 
 }

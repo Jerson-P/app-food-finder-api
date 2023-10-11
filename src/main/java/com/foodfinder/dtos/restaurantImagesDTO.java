@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class restaurantImagesDTO implements Serializable{
+public class RestaurantImagesDTO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -19,5 +19,5 @@ public class restaurantImagesDTO implements Serializable{
 	
 	private byte[] image;
 	
-	private restaurantDTO restaurant;
+	private RestaurantDTO restaurant;
 }

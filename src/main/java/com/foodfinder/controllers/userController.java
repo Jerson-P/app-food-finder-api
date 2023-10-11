@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.foodfinder.dtos.ResponseDTO;
-import com.foodfinder.serviceImpl.userServiceImpl;
+import com.foodfinder.serviceImpl.UserServiceImpl;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -32,13 +32,13 @@ import lombok.RequiredArgsConstructor;
 @CrossOrigin(origins = "*", methods = { RequestMethod.DELETE, RequestMethod.GET, RequestMethod.POST,
 		RequestMethod.PUT })
 @RequiredArgsConstructor
-public class userController {
+public class UserController {
 
 	/**
 	 * Atributo que inyecta una instancia de la interfaz que contiene los métodos
 	 * que seran usados en este controlador.
 	 */
-	private final userServiceImpl userService;
+	private final UserServiceImpl userService;
 	
 	//@Operation(summary = "Operación que permite consultar los usuarios")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Se consulta exitosamente", content = {

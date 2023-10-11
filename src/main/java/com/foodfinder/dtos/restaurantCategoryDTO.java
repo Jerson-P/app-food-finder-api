@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class restaurantCategoryDTO implements Serializable{
+public class RestaurantCategoryDTO implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	

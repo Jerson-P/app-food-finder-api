@@ -36,7 +36,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "imagenes_restaurante")
 @EntityListeners(AuditingEntityListener.class)
 //@Where(clause = "activo = true")
-public class restaurantImages implements Serializable{
+public class RestaurantImages implements Serializable{
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -52,6 +52,6 @@ public class restaurantImages implements Serializable{
 		
 		@JoinColumn(name = "id_restaurante", referencedColumnName = "id_restaurante")
 		@ManyToOne
-		private restaurant restaurant;
+		private Restaurant restaurant;
 
 }

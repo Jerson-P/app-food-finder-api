@@ -4,7 +4,7 @@ package com.foodfinder.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.foodfinder.entities.menu;
+import com.foodfinder.entities.Menu;
 
 /**
  * @author Luis Montoya
@@ -15,6 +15,6 @@ import com.foodfinder.entities.menu;
  */
 
 @Repository
-public interface menuRepository extends JpaRepository<menu, Integer>{
+public interface MenuRepository extends JpaRepository<Menu, Integer>{
 	
 }
