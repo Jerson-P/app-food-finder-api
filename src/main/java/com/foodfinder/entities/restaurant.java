@@ -20,6 +20,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author Jerson Peña
+ * @version 1.0
+ * 
+ *          Clase que contiene el método y variables de restaurant
+ *          
+ */
+
 @Data
 @Builder
 @NoArgsConstructor
