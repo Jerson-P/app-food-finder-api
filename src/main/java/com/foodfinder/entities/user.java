@@ -1,5 +1,7 @@
 package com.foodfinder.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,11 +24,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "usuario", schema = "seguridad")
+@Table(name = "usuarios")
 @EntityListeners(AuditingEntityListener.class)
 @Where(clause = "activo = true")
-public class user {
+public class user implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
