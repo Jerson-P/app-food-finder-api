@@ -13,12 +13,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-//import org.hibernate.annotations.Where;
+
+import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 
 /**
  * @author Jerson Peña
@@ -35,7 +37,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "restaurantes")
 @EntityListeners(AuditingEntityListener.class)
-//@Where(clause = "activo = true")
+@Where(clause = "activo = 1")
+
 public class restaurant implements Serializable{
 	
 	private static final long serialVersionUID = 1L;

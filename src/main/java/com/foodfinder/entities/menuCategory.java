@@ -18,6 +18,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * @author Luis Montoya
+ * @version 1.0
+ * 
+ *          Clase que contiene el método y variables de menuCategory
+ *          
+ */
+
+
 @Data
 @Builder
 @NoArgsConstructor
