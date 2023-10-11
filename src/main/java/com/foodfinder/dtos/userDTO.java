@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class userDTO {
+public class UserDTO {
 
 	private Integer id;
 	private String user;

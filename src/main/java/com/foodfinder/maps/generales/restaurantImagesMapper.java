@@ -3,16 +3,16 @@ package com.foodfinder.maps.generales;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.factory.Mappers;
 
-import com.foodfinder.dtos.restaurantImagesDTO;
-import com.foodfinder.entities.restaurantImages;
+import com.foodfinder.dtos.RestaurantImagesDTO;
+import com.foodfinder.entities.RestaurantImages;
 
-public interface restaurantImagesMapper {
+public interface RestaurantImagesMapper {
 	
-	restaurantImagesMapper INSTANCE = Mappers.getMapper(restaurantImagesMapper.class);
+	RestaurantImagesMapper INSTANCE = Mappers.getMapper(RestaurantImagesMapper.class);
 	
-	restaurantImagesDTO entityToDto(restaurantImages entity);
+	RestaurantImagesDTO entityToDto(RestaurantImages entity);
 	
 	@InheritInverseConfiguration
-	restaurantImages dtoToEntity(restaurantImagesDTO dto);
+	RestaurantImages dtoToEntity(RestaurantImagesDTO dto);
 
 }

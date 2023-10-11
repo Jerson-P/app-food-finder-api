@@ -7,8 +7,8 @@ import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
-import com.foodfinder.dtos.userDTO;
-import com.foodfinder.entities.user;
+import com.foodfinder.dtos.UserDTO;
+import com.foodfinder.entities.User;
 
 /**
  * @author nicope
@@ -23,14 +23,14 @@ import com.foodfinder.entities.user;
  */
 
 @Mapper
-public interface userMapper {
+public interface UserMapper {
 
-	userMapper INSTANCE = Mappers.getMapper(userMapper.class);
+	UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 	
-	userDTO entityToDto(user entity);
+	UserDTO entityToDto(User entity);
 	
 	@InheritInverseConfiguration
-	user dtoToEntity(userDTO dto);
+	User dtoToEntity(UserDTO dto);
 	
-	List<userDTO> beanListToDtoList(List<user> lista);
+	List<UserDTO> beanListToDtoList(List<User> lista);
 }

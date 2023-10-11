@@ -34,7 +34,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "categoria_menu")
 @EntityListeners(AuditingEntityListener.class)
-public class menuCategory implements Serializable {
+public class MenuCategory implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	

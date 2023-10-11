@@ -35,7 +35,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "categoria_restaurante")
 @EntityListeners(AuditingEntityListener.class)
 @Where(clause = "activo = true")
-public class restaurantCategory implements Serializable{
+public class RestaurantCategory implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	

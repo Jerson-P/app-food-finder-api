@@ -43,7 +43,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "usuarios")
 @EntityListeners(AuditingEntityListener.class)
 @Where(clause = "estado = 1")
-public class user implements Serializable{
+public class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	

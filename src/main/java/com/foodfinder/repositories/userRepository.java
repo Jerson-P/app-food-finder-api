@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.foodfinder.entities.user;
+import com.foodfinder.entities.User;
 
 /**
  * @author nicope
@@ -22,7 +22,7 @@ import com.foodfinder.entities.user;
  */
 
 @Repository
-public interface userRepository extends JpaRepository<user, Integer>{
+public interface UserRepository extends JpaRepository<User, Integer>{
 
 	//Optional<user> findByUsuarioAndContrasenia(String user, String password);
 	

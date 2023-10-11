@@ -31,7 +31,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "imagenes_menu")
-public class menuImages implements Serializable {
+public class MenuImages implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -47,6 +47,6 @@ public class menuImages implements Serializable {
 	
 	@JoinColumn(name = "id_menu", referencedColumnName = "id_menu")
 	@ManyToOne
-	private menu menu;
+	private Menu menu;
 	
 }

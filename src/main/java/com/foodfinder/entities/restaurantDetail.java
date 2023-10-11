@@ -36,7 +36,7 @@ import lombok.NoArgsConstructor;
 @EntityListeners(AuditingEntityListener.class)
 @Where(clause = "activo = true")
 
-public class restaurantDetail implements Serializable{
+public class RestaurantDetail implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	

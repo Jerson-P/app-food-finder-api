@@ -1,6 +1,6 @@
 package com.foodfinder.utils;
 
-public class constants {
+public class Constants {
 
 	public static final String AUTENTACION_EXITOSA ="Se realizo la autenticación exitosamente";
 	public static final String CAMBIO_CLAVE_USUARIO_EXITOSA ="Se realizo el cambio de clave del usuario exitosamente";

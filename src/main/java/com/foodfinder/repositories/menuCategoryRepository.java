@@ -3,7 +3,7 @@ package com.foodfinder.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.foodfinder.entities.menuCategory;
+import com.foodfinder.entities.MenuCategory;
 
 /**
  * @author Luis Montoya
@@ -14,6 +14,6 @@ import com.foodfinder.entities.menuCategory;
  */
 
 @Repository
-public interface menuCategoryRepository extends JpaRepository<menuCategory, Integer>{
+public interface MenuCategoryRepository extends JpaRepository<MenuCategory, Integer>{
 
 }

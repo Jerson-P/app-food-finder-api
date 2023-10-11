@@ -32,7 +32,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "menu")
-public class menu implements Serializable {
+public class Menu implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -60,9 +60,9 @@ public class menu implements Serializable {
 	
 	@JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
 	@OneToOne
-	private menuCategory categoria;
+	private MenuCategory categoria;
 	
 	@JoinColumn(name = "id_restaurante", referencedColumnName = "id_restaurante")
 	@OneToOne
-	private restaurant restaurant; 
+	private Restaurant restaurant; 
 }
