@@ -7,9 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import com.foodfinder.dtos.RestaurantDTO;
-import com.foodfinder.dtos.UserDTO;
 import com.foodfinder.entities.Restaurant;
-import com.foodfinder.entities.User;
 
 @Mapper(uses = { RestaurantDetailMapper.class, RestaurantCategoryMapper.class, UserMapper.class})
 public interface RestaurantMapper {
