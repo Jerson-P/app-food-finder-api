@@ -53,15 +53,15 @@ public class User implements Serializable{
 	@Column(name = "id_usuario")
 	private Integer id;
 	
-	@Basic(optional = false)
+	@Basic(optional = true)
 	@Column(name = "usuario")
 	private String user;
 	
-	@Basic(optional = false)
+	@Basic(optional = true)
 	@Column(name = "contrasenia")
 	private String password;
 	
-	@Basic(optional = false)
+	@Basic(optional = true)
 	@Column(name = "nombre")
 	private String name;
 	
@@ -77,11 +77,11 @@ public class User implements Serializable{
 	@Column(name = "correo")
 	private String mail;
 	
-	@Basic(optional = false)
+	@Basic(optional = true)
 	@Column(name = "celular")
 	private String cellPhone;
 	
-	@Basic(optional = false)
+	@Basic(optional = true)
 	@Column(name = "estado")
 	private Integer status;
 }

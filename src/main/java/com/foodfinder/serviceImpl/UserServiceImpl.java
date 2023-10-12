@@ -65,7 +65,7 @@ public class UserServiceImpl implements IUserService{
 		if(permiteGuardar) {
 			log.info("Inicio método de guardar usuario");
 			
-			if(user.getId() != null) {
+			/*if(user.getId() != null) {
 				Optional<User> usuarioTemp = this.userRepository.findById(user.getId());
 				
 				if(!usuarioTemp.get().getPassword().equals(user.getPassword())) {
@@ -79,7 +79,7 @@ public class UserServiceImpl implements IUserService{
 					log.info("Fin del metodo editar usuario");
 					return new ResponseEntity<ResponseDTO>(Utils.mapearRespuesta(Constants.ACTUALIZADO_EXITOSAMENTE, HttpStatus.CREATED.value()), HttpStatus.CREATED);
 				}
-			}
+			}*/
 			user.setPassword(user.getPassword());
 			this.userRepository.save(UserMapper.INSTANCE.dtoToEntity(user));
 			log.info("Fin metodo de guardar usuario");
