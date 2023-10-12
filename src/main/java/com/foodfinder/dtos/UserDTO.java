@@ -1,5 +1,7 @@
 package com.foodfinder.dtos;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +23,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserDTO {
+public class UserDTO implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 
 	private Integer id;
 	private String user;

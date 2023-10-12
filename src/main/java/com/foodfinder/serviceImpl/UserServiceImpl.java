@@ -16,7 +16,6 @@ import com.foodfinder.repositories.UserRepository;
 import com.foodfinder.service.IUserService;
 import com.foodfinder.utils.Utils;
 import com.foodfinder.utils.Constants;
-import com.foodfinder.utils.EncriptarDesencriptar;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -49,9 +48,11 @@ public class UserServiceImpl implements IUserService{
 	/**
 	 * Método que permite registrar un usuario.
 	 */
-	public ResponseEntity<ResponseDTO> guardarUsuario(UserDTO user){
-		boolean permiteGuardar = true;
+	@Override
+	public ResponseEntity<ResponseDTO> save(UserDTO user){
+		boolean permiteGuardar = false;
 		List<User> listUsuario = this.userRepository.findAll();
+		System.out.println("guardar usuario -> "+ user);
 		if(Objects.nonNull(user.getUser())) {
 			for(User u : listUsuario) {
 				if(Objects.nonNull(listUsuario)) {
@@ -65,7 +66,7 @@ public class UserServiceImpl implements IUserService{
 		if(permiteGuardar) {
 			log.info("Inicio método de guardar usuario");
 			
-			if(user.getId() != null) {
+			/*if(user.getId() != null) {
 				Optional<User> usuarioTemp = this.userRepository.findById(user.getId());
 				
 				if(!usuarioTemp.get().getPassword().equals(user.getPassword())) {
@@ -79,7 +80,8 @@ public class UserServiceImpl implements IUserService{
 					log.info("Fin del metodo editar usuario");
 					return new ResponseEntity<ResponseDTO>(Utils.mapearRespuesta(Constants.ACTUALIZADO_EXITOSAMENTE, HttpStatus.CREATED.value()), HttpStatus.CREATED);
 				}
-			}
+			}*/
+			user.setId(user.getId());
 			user.setPassword(user.getPassword());
 			this.userRepository.save(UserMapper.INSTANCE.dtoToEntity(user));
 			log.info("Fin metodo de guardar usuario");

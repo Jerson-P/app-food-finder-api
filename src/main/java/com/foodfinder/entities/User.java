@@ -48,7 +48,7 @@ public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "id_usuario")
 	private Integer id;
@@ -81,7 +81,7 @@ public class User implements Serializable{
 	@Column(name = "celular")
 	private String cellPhone;
 	
-	@Basic(optional = false)
+	@Basic(optional = true)
 	@Column(name = "estado")
 	private Integer status;
 }
