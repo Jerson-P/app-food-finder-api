@@ -1,5 +1,6 @@
 package com.foodfinder.entities;
 
+import java.awt.Point;
 import java.io.Serializable;
 
 import javax.persistence.Basic;
@@ -61,5 +62,5 @@ public class RestaurantDetail implements Serializable{
 	
 	@Basic(optional = false)
 	@Column(name = "ubicacion_mapa")
-	private String locationMap;
+    private String locationMap;
 }
