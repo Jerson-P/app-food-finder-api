@@ -65,15 +65,15 @@ public class User implements Serializable{
 	@Column(name = "nombre")
 	private String name;
 	
-	@Basic(optional = false)
+	@Basic(optional = true)
 	@Column(name = "tipo_identificacion")
 	private String identificationType;
 	
-	@Basic(optional = false)
+	@Basic(optional = true)
 	@Column(name = "identificacion")
 	private String identification;
 	
-	@Basic(optional = false)
+	@Basic(optional = true)
 	@Column(name = "correo")
 	private String mail;
 	

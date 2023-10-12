@@ -37,8 +37,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "restaurantes")
 @EntityListeners(AuditingEntityListener.class)
-@Where(clause = "activo = 1")
-
+@Where(clause = "estado = 1")
 public class Restaurant implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
