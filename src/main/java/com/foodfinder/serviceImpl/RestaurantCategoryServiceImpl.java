@@ -38,7 +38,7 @@ public class RestaurantCategoryServiceImpl implements IRestaurantCategoryService
 	private final RestaurantCategoryRepository restaurantCategoryRepository;
 	
 	/**
-	 * Método que permite obtener todos los ususarios .
+	 * Método que permite obtener todos las categorias de los restaurantes.
 	 */
 	@Override
 	public ResponseEntity<ResponseDTO> getRestaurantsCategory() {
