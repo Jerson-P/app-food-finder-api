@@ -56,11 +56,11 @@ public class Restaurant implements Serializable{
 	@Column(name = "correo")
 	private String email;
 	
-	@Basic(optional = false)
+	@Basic(optional = true)
 	@Column(name = "direccion")
 	private String adress;
 	
-	@Basic(optional = false)
+	@Basic(optional = true)
 	@Column(name = "telefono")
 	private String phone;
 	

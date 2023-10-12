@@ -5,7 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.foodfinder.dtos.ResponseDTO;
+import com.foodfinder.dtos.RestaurantDTO;
+import com.foodfinder.dtos.RestaurantDetailDTO;
 import com.foodfinder.maps.generales.RestaurantDetailMapper;
+import com.foodfinder.maps.generales.RestaurantMapper;
 import com.foodfinder.repositories.RestaurantDetailRepository;
 import com.foodfinder.service.IRestaurantDetailService;
 import com.foodfinder.utils.Constants;
@@ -37,6 +40,15 @@ public class RestaurantDetailServiceImpl implements IRestaurantDetailService{
 		return new ResponseEntity<ResponseDTO>(Utils.mapearRespuesta(Constants.CONSULTA_EXITOSAMENTE,
 				HttpStatus.OK.value(), RestaurantDetailMapper.INSTANCE.beanListToDtoList(this.restaurantDetailRepository.findAll())),
 				HttpStatus.OK);
+	}
+	
+	@Override
+	public ResponseEntity<ResponseDTO> saveRestaurantDetail(RestaurantDetailDTO restaurantDetail) {
+		System.out.println("Inicio metodo guardar restaurantDetail "+ restaurantDetail);
+		this.restaurantDetailRepository.save(RestaurantDetailMapper.INSTANCE.dtoToEntity(restaurantDetail));
+		log.info("Fin metodo guardar restaurantDetail");
+		return new ResponseEntity<ResponseDTO>(Utils.mapearRespuesta(Constants.GUARDADO_EXITOSAMENTE, HttpStatus.CREATED.value()), HttpStatus.CREATED);
+
 	}
 
 }

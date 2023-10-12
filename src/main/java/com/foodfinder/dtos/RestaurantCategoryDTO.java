@@ -21,10 +21,4 @@ public class RestaurantCategoryDTO implements Serializable{
 	private String name;
 	
 	private String description;
-	
-	private String openinHours;
-	
-	private String webSite;
-	
-	private String locationMap;
 }
