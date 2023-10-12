@@ -19,5 +19,5 @@ public interface IUserService {
 
 	public ResponseEntity<ResponseDTO> obtenerUsuarios();
 	
-	public ResponseEntity<ResponseDTO> guardarUsuario(UserDTO user);// Agregar este metodo para guardar el usuario
+	public ResponseEntity<ResponseDTO> save(final UserDTO user);
 }

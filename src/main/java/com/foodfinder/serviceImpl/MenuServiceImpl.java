@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.foodfinder.dtos.MenuDTO;
 import com.foodfinder.dtos.ResponseDTO;
 import com.foodfinder.maps.generales.MenuMapper;
 import com.foodfinder.repositories.MenuRepository;
@@ -37,5 +38,16 @@ public class MenuServiceImpl implements IMenuService{
 		return new ResponseEntity<ResponseDTO>(Utils.mapearRespuesta(Constants.CONSULTA_EXITOSAMENTE,
 				HttpStatus.OK.value(), MenuMapper.INSTANCE.beanListToDtoList(this.menuRepository.findAll())),
 				HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<ResponseDTO> save(MenuDTO menu) {
+		log.info("Inicio metodo guardar menu ");
+		System.out.println("Inicio metodo guardar menu "+ menu);
+		this.menuRepository.save(MenuMapper.INSTANCE.dtoToEntity(menu));
+	
+		log.info("Fin metodo guardar menu");
+		return new ResponseEntity<ResponseDTO>(Utils.mapearRespuesta(Constants.GUARDADO_EXITOSAMENTE, HttpStatus.CREATED.value()), HttpStatus.CREATED);
+
 	}
 }
