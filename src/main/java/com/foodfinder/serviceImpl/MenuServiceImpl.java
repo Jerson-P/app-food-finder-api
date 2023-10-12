@@ -50,4 +50,19 @@ public class MenuServiceImpl implements IMenuService{
 		return new ResponseEntity<ResponseDTO>(Utils.mapearRespuesta(Constants.GUARDADO_EXITOSAMENTE, HttpStatus.CREATED.value()), HttpStatus.CREATED);
 
 	}
+
+	@Override
+	public ResponseEntity<ResponseDTO> delete(Integer id) {
+		try {
+			this.menuRepository.deleteById(id);
+
+			return new ResponseEntity<ResponseDTO>(
+					Utils.mapearRespuesta(Constants.ELIMINADO_EXITOSAMENTE, HttpStatus.OK.value()), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<ResponseDTO>(
+					Utils.mapearRespuesta(Constants.NO_SE_PUEDE_ELIMINAR, HttpStatus.ACCEPTED.value()),
+					HttpStatus.ACCEPTED);
+		}
+	}
+	
 }

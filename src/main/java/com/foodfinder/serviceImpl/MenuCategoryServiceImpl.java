@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.foodfinder.dtos.MenuCategoryDTO;
 import com.foodfinder.dtos.ResponseDTO;
 import com.foodfinder.maps.generales.MenuCategoryMapper;
 import com.foodfinder.repositories.MenuCategoryRepository;
@@ -37,5 +38,31 @@ public class MenuCategoryServiceImpl implements IMenuCategoryService{
 		return new ResponseEntity<ResponseDTO>(Utils.mapearRespuesta(Constants.CONSULTA_EXITOSAMENTE,
 				HttpStatus.OK.value(), MenuCategoryMapper.INSTANCE.beanListToDtoList(this.menuCategoryRepository.findAll())),
 				HttpStatus.OK);
+	}
+	
+	@Override
+	public ResponseEntity<ResponseDTO> save(MenuCategoryDTO menuCategory) {
+		log.info("Inicio metodo guardar categoria menu ");
+		System.out.println("Inicio metodo guardar menu "+ menuCategory);
+		this.menuCategoryRepository.save(MenuCategoryMapper.INSTANCE.dtoToEntity(menuCategory));
+	
+		log.info("Fin metodo guardar categoria menu");
+		return new ResponseEntity<ResponseDTO>(Utils.mapearRespuesta(Constants.GUARDADO_EXITOSAMENTE, HttpStatus.CREATED.value()), HttpStatus.CREATED);
+
+	}
+	
+	@Override
+	public ResponseEntity<ResponseDTO> delete(Integer id) {
+		try {
+			log.info("Inicio metodo eliminar categoria menu");
+			this.menuCategoryRepository.deleteById(id);
+
+			return new ResponseEntity<ResponseDTO>(
+					Utils.mapearRespuesta(Constants.ELIMINADO_EXITOSAMENTE, HttpStatus.OK.value()), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<ResponseDTO>(
+					Utils.mapearRespuesta(Constants.NO_SE_PUEDE_ELIMINAR, HttpStatus.ACCEPTED.value()),
+					HttpStatus.ACCEPTED);
+		}
 	}
 }
