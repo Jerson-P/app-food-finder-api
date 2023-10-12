@@ -34,4 +34,16 @@ public class Utils {
 		
 		return response;
 	}
+	
+	/**
+	 * Método que permite mapear la respuesta de un servicio.
+	 */
+	public static ResponseDTO mapearRespuesta(final String message, final Integer statusCode) {
+		ResponseDTO response = new ResponseDTO();
+		response.setMessage(message);
+		response.setStatusCode(statusCode);
+		response.setObjectResponse(null);
+
+		return response;
+	}
 }
