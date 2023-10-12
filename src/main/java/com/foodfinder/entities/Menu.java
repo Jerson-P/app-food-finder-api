@@ -60,7 +60,7 @@ public class Menu implements Serializable {
 	
 	@JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")
 	@OneToOne
-	private MenuCategory categoria;
+	private MenuCategory category;
 	
 	@JoinColumn(name = "id_restaurante", referencedColumnName = "id_restaurante")
 	@OneToOne
