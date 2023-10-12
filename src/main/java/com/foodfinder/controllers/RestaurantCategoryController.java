@@ -1,7 +1,5 @@
 package com.foodfinder.controllers;
 
-
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.foodfinder.dtos.ResponseDTO;
-import com.foodfinder.serviceImpl.RestaurantServiceImpl;
-import com.foodfinder.serviceImpl.UserServiceImpl;
+import com.foodfinder.serviceImpl.RestaurantCategoryServiceImpl;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -30,20 +27,20 @@ import lombok.RequiredArgsConstructor;
  */
 
 @RestController
-@RequestMapping("/api/v1/restaurant")
-@Tag(name = "Restaurant - Controller", description = "Controller encargado de gestionar las operaciones del Restaurante.")
+@RequestMapping("/api/v1/restaurantCategory")
+@Tag(name = "restaurantCategory - Controller", description = "Controller encargado de gestionar las operaciones del restaurantCategory.")
 @CrossOrigin(origins = "*", methods = { RequestMethod.DELETE, RequestMethod.GET, RequestMethod.POST,
 		RequestMethod.PUT })
 @RequiredArgsConstructor
-public class RestaurantController {
+public class RestaurantCategoryController {
 	
 	/**
 	 * Atributo que inyecta una instancia de la interfaz que contiene los métodos
 	 * que seran usados en este controlador.
 	 */
-	private final RestaurantServiceImpl RestaurantService;
+	private final RestaurantCategoryServiceImpl RestaurantCategoryService;
 	
-	//@Operation(summary = "Operación que permite consultar los restaurantes")
+	//@Operation(summary = "Operación que permite consultar las categorias de los restaurantes")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Se consulta exitosamente", content = {
 			@Content(mediaType = "application/json", schema = @Schema(implementation = com.foodfinder.dtos.ResponseDTO.class)) }),
 			@ApiResponse(responseCode = "400", description = "La petición no puede ser entendida por el servidor debido a errores de sintaxis, el cliente no debe repetirla no sin antes hacer modificaciones", content = {
@@ -54,7 +51,7 @@ public class RestaurantController {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseDTO.class)) }), })
 	@GetMapping("/all")
 	public ResponseEntity<ResponseDTO> obtenerHistorial() {
-		return this.RestaurantService.getRestaurants();
+		return this.RestaurantCategoryService.getRestaurantsCategory();
 	}
 
 }
