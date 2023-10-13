@@ -26,4 +26,6 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 
 	//Optional<user> findByUsuarioAndContrasenia(String user, String password);
 	
+	Optional<User> findById(Integer id);
+	
 }

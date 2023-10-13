@@ -20,4 +20,10 @@ public interface IUserService {
 	public ResponseEntity<ResponseDTO> obtenerUsuarios();
 	
 	public ResponseEntity<ResponseDTO> save(final UserDTO user);
+	
+
+	/**
+	 * Método que permite optener los usuario por Id.
+	 */
+	public ResponseEntity<ResponseDTO> findUserById(Integer id);
 }

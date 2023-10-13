@@ -46,6 +46,18 @@ public class UserServiceImpl implements IUserService{
 	}
 	
 	/**
+	 * Método que permite optener los usuario por Id.
+	 */
+	
+	@Override
+	public ResponseEntity<ResponseDTO> findUserById(Integer id) {
+		log.info("Inicio metodo para obtener usuario por id");
+		return new ResponseEntity<ResponseDTO>(Utils.mapearRespuesta(Constants.CONSULTA_EXITOSAMENTE,
+				HttpStatus.OK.value(), this.userRepository.findById(id)),
+				HttpStatus.OK);
+	}
+	
+	/**
 	 * Método que permite registrar un usuario.
 	 */
 	@Override
