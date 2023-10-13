@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.foodfinder.dtos.MenuImagesDTO;
 import com.foodfinder.dtos.ResponseDTO;
 import com.foodfinder.maps.generales.MenuImagesMapper;
 import com.foodfinder.repositories.MenuImagesRepository;
@@ -37,5 +38,30 @@ public class MenuImagesServiceImpl implements IMenuImagesService{
 		return new ResponseEntity<ResponseDTO>(Utils.mapearRespuesta(Constants.CONSULTA_EXITOSAMENTE,
 				HttpStatus.OK.value(), MenuImagesMapper.INSTANCE.beanListToDtoList(this.menuImagesRepository.findAll())),
 				HttpStatus.OK);
+	}
+	
+	@Override
+	public ResponseEntity<ResponseDTO> save(MenuImagesDTO menuImages) {
+		log.info("Inicio metodo guardar menu ");
+		System.out.println("Inicio metodo guardar menu "+ menuImages);
+		this.menuImagesRepository.save(MenuImagesMapper.INSTANCE.dtoToEntity(menuImages));
+	
+		log.info("Fin metodo guardar menu");
+		return new ResponseEntity<ResponseDTO>(Utils.mapearRespuesta(Constants.GUARDADO_EXITOSAMENTE, HttpStatus.CREATED.value()), HttpStatus.CREATED);
+
+	}
+
+	@Override
+	public ResponseEntity<ResponseDTO> delete(Integer id) {
+		try {
+			this.menuImagesRepository.deleteById(id);
+
+			return new ResponseEntity<ResponseDTO>(
+					Utils.mapearRespuesta(Constants.ELIMINADO_EXITOSAMENTE, HttpStatus.OK.value()), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<ResponseDTO>(
+					Utils.mapearRespuesta(Constants.NO_SE_PUEDE_ELIMINAR, HttpStatus.ACCEPTED.value()),
+					HttpStatus.ACCEPTED);
+		}
 	}
 }

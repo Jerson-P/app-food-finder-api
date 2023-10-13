@@ -2,6 +2,7 @@ package com.foodfinder.service;
 
 import org.springframework.http.ResponseEntity;
 
+import com.foodfinder.dtos.MenuImagesDTO;
 import com.foodfinder.dtos.ResponseDTO;
 
 /**
@@ -16,4 +17,7 @@ public interface IMenuImagesService {
 	
 	public ResponseEntity<ResponseDTO> getMenuImages();
 
+	public ResponseEntity<ResponseDTO> save(final MenuImagesDTO menuImages);
+	
+	public ResponseEntity<ResponseDTO> delete(final Integer id);
 }

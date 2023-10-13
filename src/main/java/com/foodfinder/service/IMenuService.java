@@ -18,5 +18,7 @@ public interface IMenuService {
 	public ResponseEntity<ResponseDTO> getMenu();
 	
 	public ResponseEntity<ResponseDTO> save(final MenuDTO menu);
+	
+	public ResponseEntity<ResponseDTO> delete(final Integer id);
 
 }
