@@ -1,12 +1,15 @@
 package com.foodfinder.serviceImpl;
 
 
+import java.util.Optional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.foodfinder.dtos.MenuImagesDTO;
 import com.foodfinder.dtos.ResponseDTO;
+import com.foodfinder.entities.MenuImages;
 import com.foodfinder.maps.generales.MenuImagesMapper;
 import com.foodfinder.repositories.MenuImagesRepository;
 import com.foodfinder.service.IMenuImagesService;
@@ -71,4 +74,43 @@ public class MenuImagesServiceImpl implements IMenuImagesService{
 					HttpStatus.ACCEPTED);
 		}
 	}
+	
+	/**
+	 * Método que permite optener las imágenes del menú por Id.
+	 */
+	
+	@Override
+	public ResponseEntity<ResponseDTO> findMenuImagesById(Integer id) {
+        log.info("Inicio del método para obtener imágenes del menú por ID");
+
+        Optional<MenuImages> menuImagesOptional = menuImagesRepository.findById(id);
+
+        ResponseDTO responseDTO;
+        if (menuImagesOptional.isPresent()) {
+            MenuImagesDTO menuImagesDTO = MenuImagesMapper.INSTANCE.entityToDto(menuImagesOptional.get());
+            long count = menuImagesRepository.countMenuImagesById(id);
+            
+            responseDTO = ResponseDTO.builder()
+                    .statusCode(HttpStatus.OK.value())
+                    .message(Constants.CONSULTA_EXITOSAMENTE)
+                    .objectResponse(menuImagesDTO)
+                    .count(count)
+                    .build();
+        } else {
+            responseDTO = ResponseDTO.builder()
+                    .statusCode(HttpStatus.NOT_FOUND.value())
+                    .message("Imagen Menú no encontrada para el ID: " + id)
+                    .objectResponse(null)
+                    .count(0L)
+                    .build();
+        }
+
+        return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
+    }
+
+	@Override
+	public long countMenuImagesById(Integer id) {
+		 return menuImagesRepository.countMenuImagesById(id);
+	}
+	
 }

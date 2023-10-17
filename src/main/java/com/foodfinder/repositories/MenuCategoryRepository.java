@@ -16,4 +16,6 @@ import com.foodfinder.entities.MenuCategory;
 @Repository
 public interface MenuCategoryRepository extends JpaRepository<MenuCategory, Integer>{
 
+	long countMenuCategoryById(Integer id);
+	
 }

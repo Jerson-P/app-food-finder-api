@@ -1,11 +1,14 @@
 package com.foodfinder.serviceImpl;
 
+import java.util.Optional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.foodfinder.dtos.MenuCategoryDTO;
 import com.foodfinder.dtos.ResponseDTO;
+import com.foodfinder.entities.MenuCategory;
 import com.foodfinder.maps.generales.MenuCategoryMapper;
 import com.foodfinder.repositories.MenuCategoryRepository;
 import com.foodfinder.service.IMenuCategoryService;
@@ -70,5 +73,39 @@ public class MenuCategoryServiceImpl implements IMenuCategoryService{
 					Utils.mapearRespuesta(Constants.NO_SE_PUEDE_ELIMINAR, HttpStatus.ACCEPTED.value()),
 					HttpStatus.ACCEPTED);
 		}
+	}
+
+	@Override
+	public ResponseEntity<ResponseDTO> findMenuCategoryById(Integer id) {
+        log.info("Inicio del método para obtener la categoria del menú por id");
+
+        Optional<MenuCategory> menuCategoryOptional = menuCategoryRepository.findById(id);
+
+        ResponseDTO responseDTO;
+        if (menuCategoryOptional.isPresent()) {
+            MenuCategoryDTO menuCategoryDTO = MenuCategoryMapper.INSTANCE.entityToDto(menuCategoryOptional.get());
+            long count = menuCategoryRepository.countMenuCategoryById(id);
+            
+            responseDTO = ResponseDTO.builder()
+                    .statusCode(HttpStatus.OK.value())
+                    .message(Constants.CONSULTA_EXITOSAMENTE)
+                    .objectResponse(menuCategoryDTO)
+                    .count(count)
+                    .build();
+        } else {
+            responseDTO = ResponseDTO.builder()
+                    .statusCode(HttpStatus.NOT_FOUND.value())
+                    .message("Imagen Menú no encontrada para el ID: " + id)
+                    .objectResponse(null)
+                    .count(0L)
+                    .build();
+        }
+
+        return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
+	}
+
+	@Override
+	public long countMenuCategoryById(Integer id) {
+		 return menuCategoryRepository.countMenuCategoryById(id);
 	}
 }

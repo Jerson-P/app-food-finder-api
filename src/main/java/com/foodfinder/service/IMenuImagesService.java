@@ -20,4 +20,11 @@ public interface IMenuImagesService {
 	public ResponseEntity<ResponseDTO> save(final MenuImagesDTO menuImages);
 	
 	public ResponseEntity<ResponseDTO> delete(final Integer id);
+	
+	/**
+	 * Método que permite optener las imágenes del menú por Id.
+	 */
+	public ResponseEntity<ResponseDTO> findMenuImagesById(Integer id);
+	
+	long countMenuImagesById(Integer menuId);
 }
