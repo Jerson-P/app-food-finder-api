@@ -26,7 +26,7 @@ public interface UserMapper {
 
 	UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 	
-	UserDTO entityToDto(UserDTO entity);
+	UserDTO entityToDto(User entity);
 	
 	@InheritInverseConfiguration
 	User dtoToEntity(UserDTO dto);
