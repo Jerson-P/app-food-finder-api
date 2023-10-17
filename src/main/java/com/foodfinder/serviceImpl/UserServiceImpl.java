@@ -2,7 +2,6 @@ package com.foodfinder.serviceImpl;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -70,6 +69,7 @@ public class UserServiceImpl implements IUserService {
 			responseDTO = ResponseDTO.builder().statusCode(HttpStatus.NOT_FOUND.value())
 					.message("El Usuario con Id " + id + " no se encuentra.").objectResponse(null).count(0L).build();
 		}
+    
 		return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
 	}
 
