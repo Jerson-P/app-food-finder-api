@@ -26,4 +26,6 @@ public interface IUserService {
 	 * Método que permite optener los usuario por Id.
 	 */
 	public ResponseEntity<ResponseDTO> findUserById(Integer id);
+	
+	public ResponseEntity<ResponseDTO> deleteUser(final Integer id);
 }

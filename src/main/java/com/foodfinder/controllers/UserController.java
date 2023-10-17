@@ -2,6 +2,7 @@ package com.foodfinder.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -88,4 +89,19 @@ public class UserController {
 		System.out.println("GetUserId-> " + id);
 		return this.userService.findUserById(id);
 	}
+	
+	@Operation(summary = "Operación que permite eliminar los usuario por su Id")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Se ha procesado exitosamente", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseDTO.class)) }),
+			@ApiResponse(responseCode = "400", description = "La petición no puede ser entendida por el servidor debido a errores de sintaxis, el cliente no debe repetirla no sin antes hacer modificaciones", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseDTO.class)) }),
+			@ApiResponse(responseCode = "404", description = "El recurso solicitado no puede ser encontrado", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseDTO.class)) }),
+			@ApiResponse(responseCode = "500", description = "Se presento una condición inesperada que impidió completar la petición", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseDTO.class)) }), })
+	@DeleteMapping("/{id}")
+    public ResponseEntity<ResponseDTO> deleteUser(@PathVariable Integer id) {
+            return this.userService.deleteUser(id);
+    }
 }
