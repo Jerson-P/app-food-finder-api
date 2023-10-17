@@ -16,7 +16,7 @@ public interface MenuMapper {
 	
 	MenuMapper INSTANCE = Mappers.getMapper(MenuMapper.class);
 	
-	MenuDTO entityToDto(MenuDTO entity);
+	MenuDTO entityToDto(Menu entity);
 	
 	@InheritInverseConfiguration
 	Menu dtoToEntity(MenuDTO dto);

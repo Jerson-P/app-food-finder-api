@@ -1,11 +1,14 @@
 package com.foodfinder.serviceImpl;
 
+import java.util.Optional;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.foodfinder.dtos.MenuDTO;
 import com.foodfinder.dtos.ResponseDTO;
+import com.foodfinder.entities.Menu;
 import com.foodfinder.maps.generales.MenuMapper;
 import com.foodfinder.repositories.MenuRepository;
 import com.foodfinder.service.IMenuService;
@@ -69,6 +72,40 @@ public class MenuServiceImpl implements IMenuService{
 					Utils.mapearRespuesta(Constants.NO_SE_PUEDE_ELIMINAR, HttpStatus.ACCEPTED.value()),
 					HttpStatus.ACCEPTED);
 		}
+	}
+
+	@Override
+	public ResponseEntity<ResponseDTO> findMenuById(Integer id) {
+		   log.info("Inicio del método para obtener el menú por id");
+
+	        Optional<Menu> menuOptional = menuRepository.findById(id);
+
+	        ResponseDTO responseDTO;
+	        if (menuOptional.isPresent()) {
+	            MenuDTO menuDTO = MenuMapper.INSTANCE.entityToDto(menuOptional.get());
+	            long count = menuRepository.countMenuById(id);
+	            
+	            responseDTO = ResponseDTO.builder()
+	                    .statusCode(HttpStatus.OK.value())
+	                    .message(Constants.CONSULTA_EXITOSAMENTE)
+	                    .objectResponse(menuDTO)
+	                    .count(count)
+	                    .build();
+	        } else {
+	            responseDTO = ResponseDTO.builder()
+	                    .statusCode(HttpStatus.NOT_FOUND.value())
+	                    .message("Menú no encontrado para el ID: " + id)
+	                    .objectResponse(null)
+	                    .count(0L)
+	                    .build();
+	        }
+
+	        return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
+	}
+
+	@Override
+	public long countMenuById(Integer id) {
+		 return menuRepository.countMenuById(id);
 	}
 	
 }

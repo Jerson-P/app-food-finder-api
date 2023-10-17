@@ -21,4 +21,10 @@ public interface IMenuCategoryService {
 	
 	public ResponseEntity<ResponseDTO> delete(final Integer id);
 
+	/**
+	 * Método que permite optener las categoria del menú por Id.
+	 */
+	public ResponseEntity<ResponseDTO> findMenuCategoryById(Integer id);
+	
+	long countMenuCategoryById(Integer menuId);
 }

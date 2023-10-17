@@ -20,5 +20,11 @@ public interface IMenuService {
 	public ResponseEntity<ResponseDTO> save(final MenuDTO menu);
 	
 	public ResponseEntity<ResponseDTO> delete(final Integer id);
+	
+	/**
+	 * Método que permite optener el menú por Id.
+	 */
+	public ResponseEntity<ResponseDTO> findMenuById(Integer id);
 
+	long countMenuById(Integer id);
 }

@@ -17,4 +17,6 @@ import com.foodfinder.entities.Menu;
 @Repository
 public interface MenuRepository extends JpaRepository<Menu, Integer>{
 	
+	long countMenuById(Integer id);
+	
 }

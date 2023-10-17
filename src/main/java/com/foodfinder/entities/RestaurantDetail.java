@@ -1,6 +1,5 @@
 package com.foodfinder.entities;
 
-import java.awt.Point;
 import java.io.Serializable;
 
 import javax.persistence.Basic;
