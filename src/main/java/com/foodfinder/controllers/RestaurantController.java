@@ -1,7 +1,5 @@
 package com.foodfinder.controllers;
 
-
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,11 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.foodfinder.dtos.MenuDTO;
 import com.foodfinder.dtos.ResponseDTO;
 import com.foodfinder.dtos.RestaurantDTO;
 import com.foodfinder.serviceImpl.RestaurantServiceImpl;
-import com.foodfinder.serviceImpl.UserServiceImpl;
 
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

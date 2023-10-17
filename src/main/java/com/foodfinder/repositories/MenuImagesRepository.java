@@ -15,5 +15,7 @@ import com.foodfinder.entities.MenuImages;
 
 @Repository
 public interface MenuImagesRepository extends JpaRepository<MenuImages, Integer> {
+	
+	long countMenuImagesById(Integer id);
 
 }

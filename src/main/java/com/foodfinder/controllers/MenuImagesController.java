@@ -90,5 +90,19 @@ public class MenuImagesController {
     public ResponseEntity<ResponseDTO> delete(@PathVariable Integer id) {
             return this.menuImagesServiceImpl.delete(id);
     }
+	
+	@Operation(summary = "Operación que permite consultar una imagen a partir de un menú")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Se consulta exitosamente", content = {
+			@Content(mediaType = "application/json", schema = @Schema(implementation = com.foodfinder.dtos.ResponseDTO.class)) }),
+			@ApiResponse(responseCode = "400", description = "La petición no puede ser entendida por el servidor debido a errores de sintaxis, el cliente no debe repetirla no sin antes hacer modificaciones", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseDTO.class)) }),
+			@ApiResponse(responseCode = "404", description = "El recurso solicitado no puede ser encontrado", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseDTO.class)) }),
+			@ApiResponse(responseCode = "500", description = "Se presento una condición inesperada que impidió completar la petición", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseDTO.class)) }), })
+	@GetMapping("/{id}")
+	public ResponseEntity<ResponseDTO> getMenuImagesId(@PathVariable Integer id) {
+		return this.menuImagesServiceImpl.findMenuImagesById(id);
+	}
 
 }

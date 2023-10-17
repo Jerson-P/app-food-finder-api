@@ -22,5 +22,4 @@ public interface MenuImagesMapper {
 	MenuImages dtoToEntity(MenuImagesDTO dto);
 	
 	List<MenuImagesDTO> beanListToDtoList(List<MenuImages> lista);
-
 }

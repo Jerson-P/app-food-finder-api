@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.foodfinder.dtos.ResponseDTO;
-import com.foodfinder.dtos.RestaurantDTO;
 import com.foodfinder.dtos.RestaurantDetailDTO;
 import com.foodfinder.serviceImpl.RestaurantDetailServiceImpl;
 
