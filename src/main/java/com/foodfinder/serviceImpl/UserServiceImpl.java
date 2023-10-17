@@ -2,6 +2,7 @@ package com.foodfinder.serviceImpl;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,12 +57,20 @@ public class UserServiceImpl implements IUserService {
 	public ResponseEntity<ResponseDTO> findUserById(Integer id) {
 		log.info("Inicio metodo para obtener usuario por id");
 
-		ResponseDTO responseDTO = ResponseDTO.builder().statusCode(HttpStatus.OK.value())
-				.message(Constants.CONSULTA_EXITOSAMENTE)
-				.objectResponse(UserMapper.INSTANCE.beanListToDtoList(this.userRepository.findAll()))
-				.count(this.userRepository.count()).build();
+		Optional<User> userOptional = userRepository.findById(id);
 
-		return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
+		ResponseDTO responseDTO;
+		if (userOptional.isPresent()) {
+			UserDTO userDTO = UserMapper.INSTANCE.entityToDto(userOptional.get());
+			long count = userRepository.countUserById(id);
+
+			responseDTO = ResponseDTO.builder().statusCode(HttpStatus.OK.value())
+					.message(Constants.CONSULTA_EXITOSAMENTE).objectResponse(userDTO).count(count).build();
+		} else {
+			responseDTO = ResponseDTO.builder().statusCode(HttpStatus.NOT_FOUND.value())
+					.message("El Usuario con Id " + id + " no se encuentra.").objectResponse(null).count(0L).build();
+		}
+		return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
 	}
 
 	/**
