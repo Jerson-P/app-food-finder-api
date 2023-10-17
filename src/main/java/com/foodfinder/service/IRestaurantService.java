@@ -19,5 +19,7 @@ public interface IRestaurantService {
 	public ResponseEntity<ResponseDTO> getRestaurants();
 	
 	public ResponseEntity<ResponseDTO> saveRestaurant(final RestaurantDTO restaurant);
+	
+	public ResponseEntity<ResponseDTO> delete(final Integer id);
 
 }
