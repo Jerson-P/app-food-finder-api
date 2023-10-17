@@ -1,5 +1,6 @@
 package com.foodfinder.serviceImpl;
 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -35,9 +36,15 @@ public class MenuImagesServiceImpl implements IMenuImagesService{
 	@Override
 	public ResponseEntity<ResponseDTO> getMenuImages(){
 		log.info("Inicio método Obtener Menu Imagenes");
-		return new ResponseEntity<ResponseDTO>(Utils.mapearRespuesta(Constants.CONSULTA_EXITOSAMENTE,
-				HttpStatus.OK.value(), MenuImagesMapper.INSTANCE.beanListToDtoList(this.menuImagesRepository.findAll())),
-				HttpStatus.OK);
+
+		 ResponseDTO responseDTO = ResponseDTO.builder()
+		            .statusCode(HttpStatus.OK.value())
+		            .message(Constants.CONSULTA_EXITOSAMENTE)
+		            .objectResponse(MenuImagesMapper.INSTANCE.beanListToDtoList(this.menuImagesRepository.findAll()))
+		            .count(this.menuImagesRepository.count())  
+		            .build();
+
+		    return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
 	}
 	
 	@Override

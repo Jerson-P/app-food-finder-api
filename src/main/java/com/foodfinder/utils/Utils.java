@@ -46,4 +46,17 @@ public class Utils {
 
 		return response;
 	}
+	
+	/**
+	 * Método que permite mapear la respuesta de un servicio devolviendo la cantidad.
+	 */
+	public static ResponseDTO mapearRespuestaCount(final String message, final Integer statusCode, final Long count) {
+		ResponseDTO response = new ResponseDTO();
+		response.setMessage(message);
+		response.setStatusCode(statusCode);
+		response.setObjectResponse(null);
+		response.setCount(count);
+
+		return response;
+	}
 }

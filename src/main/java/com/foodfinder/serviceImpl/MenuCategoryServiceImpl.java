@@ -35,9 +35,15 @@ public class MenuCategoryServiceImpl implements IMenuCategoryService{
 	@Override
 	public ResponseEntity<ResponseDTO> getMenuCategory(){
 		log.info("Inicio método Obtener Categoria del Menu");
-		return new ResponseEntity<ResponseDTO>(Utils.mapearRespuesta(Constants.CONSULTA_EXITOSAMENTE,
-				HttpStatus.OK.value(), MenuCategoryMapper.INSTANCE.beanListToDtoList(this.menuCategoryRepository.findAll())),
-				HttpStatus.OK);
+		
+		 ResponseDTO responseDTO = ResponseDTO.builder()
+		            .statusCode(HttpStatus.OK.value())
+		            .message(Constants.CONSULTA_EXITOSAMENTE)
+		            .objectResponse(MenuCategoryMapper.INSTANCE.beanListToDtoList(this.menuCategoryRepository.findAll()))
+		            .count(this.menuCategoryRepository.count())  
+		            .build();
+
+		    return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
 	}
 	
 	@Override
