@@ -35,9 +35,15 @@ public class MenuServiceImpl implements IMenuService{
 	@Override
 	public ResponseEntity<ResponseDTO> getMenu(){
 		log.info("Inicio método Obtener Menu");
-		return new ResponseEntity<ResponseDTO>(Utils.mapearRespuesta(Constants.CONSULTA_EXITOSAMENTE,
-				HttpStatus.OK.value(), MenuMapper.INSTANCE.beanListToDtoList(this.menuRepository.findAll())),
-				HttpStatus.OK);
+
+		 ResponseDTO responseDTO = ResponseDTO.builder()
+		            .statusCode(HttpStatus.OK.value())
+		            .message(Constants.CONSULTA_EXITOSAMENTE)
+		            .objectResponse(MenuMapper.INSTANCE.beanListToDtoList(this.menuRepository.findAll()))
+		            .count(this.menuRepository.count())  
+		            .build();
+
+		    return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
 	}
 
 	@Override

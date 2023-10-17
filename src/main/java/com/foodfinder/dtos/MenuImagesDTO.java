@@ -17,7 +17,7 @@ public class MenuImagesDTO implements Serializable{
 	
 	private Integer id;
 	
-	private byte[] image;
+	private String rutaimagen;
 	
 	private MenuDTO menu;
 	

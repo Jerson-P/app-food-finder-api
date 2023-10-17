@@ -26,4 +26,5 @@ public class ResponseDTO {
 	private Integer statusCode;
 	private String message;
 	private Object objectResponse;
+	private Long count;
 }

@@ -42,8 +42,8 @@ public class MenuImages implements Serializable {
 	private Integer id;
 	
 	@Basic(optional = false)
-	@Column(name = "imagen")
-	private byte[] image;
+	@Column(name = "rutaimagen")
+	private String rutaimagen;
 	
 	@JoinColumn(name = "id_menu", referencedColumnName = "id_menu")
 	@ManyToOne
