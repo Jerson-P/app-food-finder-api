@@ -2,6 +2,7 @@ package com.foodfinder.serviceImpl;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -69,7 +70,7 @@ public class UserServiceImpl implements IUserService {
 			responseDTO = ResponseDTO.builder().statusCode(HttpStatus.NOT_FOUND.value())
 					.message("El Usuario con Id " + id + " no se encuentra.").objectResponse(null).count(0L).build();
 		}
-    
+
 		return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
 	}
 
@@ -100,17 +101,13 @@ public class UserServiceImpl implements IUserService {
 			log.info("Fin metodo de guardar usuario");
 
 			ResponseDTO responseDTO = ResponseDTO.builder().statusCode(HttpStatus.OK.value())
-					.message(Constants.GUARDADO_EXITOSAMENTE)
-					.objectResponse(UserMapper.INSTANCE.beanListToDtoList(this.userRepository.findAll()))
-					.count(this.userRepository.count()).build();
+					.message(Constants.GUARDADO_EXITOSAMENTE).objectResponse(null).count(1L).build();
 
 			return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
 		} else {
 
 			ResponseDTO responseDTO = ResponseDTO.builder().statusCode(HttpStatus.ACCEPTED.value())
-					.message(Constants.USUARIO_NO_PUEDE_GUARDAR)
-					.objectResponse(UserMapper.INSTANCE.beanListToDtoList(this.userRepository.findAll()))
-					.count(this.userRepository.count()).build();
+					.message(Constants.USUARIO_NO_PUEDE_GUARDAR).objectResponse(null).count(0L).build();
 
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(responseDTO);
 		}
