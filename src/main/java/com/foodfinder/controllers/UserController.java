@@ -69,7 +69,7 @@ public class UserController {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseDTO.class)) }),
 			@ApiResponse(responseCode = "500", description = "Se presento una condición inesperada que impidió completar la petición", content = {
 					@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseDTO.class)) }), })
-	@PostMapping()
+	@PostMapping("/save")
 	public ResponseEntity<ResponseDTO> save(@RequestBody UserDTO user) {
 		System.out.println("user controller "+ user);
 		return this.userService.save(user);
