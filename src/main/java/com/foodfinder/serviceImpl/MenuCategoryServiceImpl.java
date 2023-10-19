@@ -57,7 +57,6 @@ public class MenuCategoryServiceImpl implements IMenuCategoryService{
 	
 		log.info("Fin metodo guardar categoria menu");
 		return new ResponseEntity<ResponseDTO>(Utils.mapearRespuesta(Constants.GUARDADO_EXITOSAMENTE, HttpStatus.CREATED.value()), HttpStatus.CREATED);
-
 	}
 	
 	@Override
@@ -108,4 +107,35 @@ public class MenuCategoryServiceImpl implements IMenuCategoryService{
 	public long countMenuCategoryById(Integer id) {
 		 return menuCategoryRepository.countMenuCategoryById(id);
 	}
+
+	@Override
+	public ResponseEntity<ResponseDTO> update(Integer id, MenuCategoryDTO menuCategoryDTO) {
+		MenuCategory existingMenuCategory = menuCategoryRepository.findById(id).orElse(null);
+		ResponseDTO responseDTO;
+
+        if (existingMenuCategory != null) {
+        	
+        	existingMenuCategory.setName(menuCategoryDTO.getName() !=null ? menuCategoryDTO.getName() : existingMenuCategory.getName());
+            existingMenuCategory.setDescription(menuCategoryDTO.getDescription() !=null ? menuCategoryDTO.getDescription() : existingMenuCategory.getDescription());
+            
+            MenuCategoryDTO menuCategoryDTOR = MenuCategoryMapper.INSTANCE.entityToDto(menuCategoryRepository.save(existingMenuCategory));
+            
+            responseDTO = ResponseDTO.builder()
+                    .statusCode(HttpStatus.OK.value())
+                    .message(Constants.ACTUALIZADO_EXITOSAMENTE)
+                    .objectResponse(menuCategoryDTOR)
+                    .count(1L)
+                    .build();
+        } else {
+            responseDTO = ResponseDTO.builder()
+                    .statusCode(HttpStatus.NOT_FOUND.value())
+                    .message("Categoria del Menú no encontrada para el Id: " + id)
+                    .objectResponse(null)
+                    .count(0L)
+                    .build();
+        }
+
+        return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
+    }
+	
 }
