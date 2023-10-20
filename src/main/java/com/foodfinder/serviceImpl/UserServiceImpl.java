@@ -127,5 +127,29 @@ public class UserServiceImpl implements IUserService {
 					HttpStatus.ACCEPTED);
 		}
 	}
+	
+	@Override
+	public ResponseEntity<ResponseDTO> update(Integer id, UserDTO userDTO){
+		User existingUser = userRepository.findById(id).orElse(null);
+		ResponseDTO responseDTO;
+		
+		if(existingUser != null) {
+			existingUser.setUser(userDTO.getUser() != null ? userDTO.getUser() : existingUser.getUser());
+			existingUser.setPassword(userDTO.getPassword() != null ? userDTO.getPassword() : existingUser.getPassword());
+			existingUser.setName(userDTO.getName() != null ? userDTO.getName() : existingUser.getName());
+			existingUser.setIdentificationType(userDTO.getIdentificationType() != null ? userDTO.getIdentificationType() : existingUser.getIdentificationType());
+			existingUser.setIdentification(userDTO.getIdentification() != null ? userDTO.getIdentification() : existingUser.getIdentification());
+			existingUser.setMail(userDTO.getMail() != null ? userDTO.getMail() : existingUser.getMail());
+			existingUser.setCellPhone(userDTO.getCellPhone() != null ? userDTO.getCellPhone() : existingUser.getCellPhone());
+			
+			UserDTO userDTOR = UserMapper.INSTANCE.entityToDto(userRepository.save(existingUser));
+			
+			responseDTO = ResponseDTO.builder().statusCode(HttpStatus.OK.value()).message(Constants.ACTUALIZADO_EXITOSAMENTE).objectResponse(userDTOR).count(1L).build();
+		} else {
+			responseDTO = ResponseDTO.builder().statusCode(HttpStatus.NOT_FOUND.value()).message("Usuario no encontrado para el Id: " + id).objectResponse(null).count(0L).build();
+		}
+		
+		return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
+	}
 
 }
