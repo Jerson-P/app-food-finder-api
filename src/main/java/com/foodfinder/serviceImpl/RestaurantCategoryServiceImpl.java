@@ -4,22 +4,16 @@ import org.springframework.http.ResponseEntity;
 
 import com.foodfinder.dtos.ResponseDTO;
 import com.foodfinder.dtos.RestaurantCategoryDTO;
-import com.foodfinder.dtos.RestaurantDetailDTO;
+import com.foodfinder.entities.RestaurantCategory;
 import com.foodfinder.service.IRestaurantCategoryService;
 
+import java.util.Optional;
+
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.foodfinder.dtos.ResponseDTO;
 import com.foodfinder.maps.generales.RestaurantCategoryMapper;
-import com.foodfinder.maps.generales.RestaurantDetailMapper;
-import com.foodfinder.maps.generales.RestaurantMapper;
-import com.foodfinder.maps.generales.UserMapper;
 import com.foodfinder.repositories.RestaurantCategoryRepository;
-import com.foodfinder.repositories.RestaurantRepository;
-import com.foodfinder.repositories.UserRepository;
-import com.foodfinder.service.IRestaurantService;
 import com.foodfinder.utils.Constants;
 import com.foodfinder.utils.Utils;
 
@@ -37,9 +31,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class RestaurantCategoryServiceImpl implements IRestaurantCategoryService {
-	
+
 	private final RestaurantCategoryRepository restaurantCategoryRepository;
-	
+
 	/**
 	 * Método que permite obtener todos las categorias de los restaurantes.
 	 */
@@ -47,21 +41,88 @@ public class RestaurantCategoryServiceImpl implements IRestaurantCategoryService
 	public ResponseEntity<ResponseDTO> getRestaurantsCategory() {
 		log.info("Inicio método Obtener la Categoria de los Restaurantes");
 		return new ResponseEntity<ResponseDTO>(Utils.mapearRespuesta(Constants.CONSULTA_EXITOSAMENTE,
-				HttpStatus.OK.value(), RestaurantCategoryMapper.INSTANCE.beanListToDtoList(this.restaurantCategoryRepository.findAll())),
+				HttpStatus.OK.value(),
+				RestaurantCategoryMapper.INSTANCE.beanListToDtoList(this.restaurantCategoryRepository.findAll())),
 				HttpStatus.OK);
 	}
-	
+
 	/**
 	 * Método que permite guardar una categoria de restaurantes.
 	 */
-	
+
 	@Override
 	public ResponseEntity<ResponseDTO> saveRestaurantCategory(RestaurantCategoryDTO restaurantDetail) {
-		System.out.println("Inicio metodo guardar restaurantDetail "+ restaurantDetail);
+		System.out.println("Inicio metodo guardar restaurantDetail " + restaurantDetail);
 		this.restaurantCategoryRepository.save(RestaurantCategoryMapper.INSTANCE.dtoToEntity(restaurantDetail));
 		log.info("Fin metodo guardar restaurantDetail");
-		return new ResponseEntity<ResponseDTO>(Utils.mapearRespuesta(Constants.GUARDADO_EXITOSAMENTE, HttpStatus.CREATED.value()), HttpStatus.CREATED);
+		return new ResponseEntity<ResponseDTO>(
+				Utils.mapearRespuesta(Constants.GUARDADO_EXITOSAMENTE, HttpStatus.CREATED.value()), HttpStatus.CREATED);
 
+	}
+
+	public ResponseEntity<ResponseDTO> findRestaurantCategoryById(Integer id) {
+		log.info("Inicio del método para obtener la categoria del restaurante por id");
+
+		Optional<RestaurantCategory> restaurantCategoryOptional = restaurantCategoryRepository.findById(id);
+
+		ResponseDTO responseDTO;
+		if (restaurantCategoryOptional.isPresent()) {
+			RestaurantCategoryDTO restaurantCategoryDTO = RestaurantCategoryMapper.INSTANCE
+					.entityToDto(restaurantCategoryOptional.get());
+			long count = restaurantCategoryRepository.countRestaurantCategoryById(id);
+
+			responseDTO = ResponseDTO.builder().statusCode(HttpStatus.OK.value())
+					.message(Constants.CONSULTA_EXITOSAMENTE).objectResponse(restaurantCategoryDTO).count(count)
+					.build();
+		} else {
+			responseDTO = ResponseDTO.builder().statusCode(HttpStatus.NOT_FOUND.value())
+					.message("Categoría del restaurante no encontrada para el Id: " + id).objectResponse(null).count(0L)
+					.build();
+		}
+
+		return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
+	}
+
+	@Override
+	public ResponseEntity<ResponseDTO> delete(Integer id) {
+		try {
+			log.info("Inicio del método para eliminar una categoria del restaurante por id");
+			this.restaurantCategoryRepository.deleteById(id);
+
+			return new ResponseEntity<ResponseDTO>(
+					Utils.mapearRespuesta(Constants.ELIMINADO_EXITOSAMENTE, HttpStatus.OK.value()), HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<ResponseDTO>(
+					Utils.mapearRespuesta(Constants.NO_SE_PUEDE_ELIMINAR, HttpStatus.ACCEPTED.value()),
+					HttpStatus.ACCEPTED);
+		}
+	}
+
+	public ResponseEntity<ResponseDTO> update(Integer id, RestaurantCategoryDTO restaurantCategoryDTO) {
+		RestaurantCategory existingRestaurantCategory = restaurantCategoryRepository.findById(id).orElse(null);
+		ResponseDTO responseDTO;
+
+		if (existingRestaurantCategory != null) {
+
+			existingRestaurantCategory.setName(restaurantCategoryDTO.getName() != null ? restaurantCategoryDTO.getName()
+					: existingRestaurantCategory.getName());
+			existingRestaurantCategory.setDescription(
+					restaurantCategoryDTO.getDescription() != null ? restaurantCategoryDTO.getDescription()
+							: existingRestaurantCategory.getDescription());
+
+			RestaurantCategoryDTO restaurantCategoryDTOR = RestaurantCategoryMapper.INSTANCE
+					.entityToDto(restaurantCategoryRepository.save(existingRestaurantCategory));
+
+			responseDTO = ResponseDTO.builder().statusCode(HttpStatus.OK.value())
+					.message(Constants.ACTUALIZADO_EXITOSAMENTE).objectResponse(restaurantCategoryDTOR).count(1L)
+					.build();
+		} else {
+			responseDTO = ResponseDTO.builder().statusCode(HttpStatus.NOT_FOUND.value())
+					.message("Categoría del restaurante no encontrada con el Id: " + id).objectResponse(null).count(0L)
+					.build();
+		}
+
+		return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
 	}
 
 }
