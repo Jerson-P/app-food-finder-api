@@ -28,4 +28,6 @@ public interface IUserService {
 	public ResponseEntity<ResponseDTO> findUserById(Integer id);
 	
 	public ResponseEntity<ResponseDTO> deleteUser(final Integer id);
+	
+	public ResponseEntity<ResponseDTO> update(Integer id, UserDTO userDTO);
 }
