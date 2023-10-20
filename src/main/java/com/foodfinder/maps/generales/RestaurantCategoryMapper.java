@@ -7,6 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import com.foodfinder.dtos.RestaurantCategoryDTO;
+import com.foodfinder.entities.Restaurant;
 import com.foodfinder.entities.RestaurantCategory;
 
 @Mapper
@@ -19,7 +20,7 @@ public interface RestaurantCategoryMapper {
 	@InheritInverseConfiguration
 	RestaurantCategory dtoToEntity(RestaurantCategoryDTO dto);
 	
-	List<RestaurantCategoryDTO> beanListToDtoList(List<RestaurantCategory> lista);
+	List<RestaurantCategoryDTO> beanListToDtoList(List<RestaurantCategory> list);
 
 
 }

@@ -16,4 +16,5 @@ import com.foodfinder.entities.RestaurantCategory;
 @Repository
 public interface RestaurantCategoryRepository extends JpaRepository<RestaurantCategory, Integer>{
 
+	long countRestaurantCategoryById(Integer id);
 }
