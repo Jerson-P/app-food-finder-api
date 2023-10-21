@@ -23,5 +23,7 @@ public interface IRestaurantCategoryService {
 	public ResponseEntity<ResponseDTO> delete(final Integer id);
 	
 	public ResponseEntity<ResponseDTO> update(Integer id, RestaurantCategoryDTO restauranCategoryDTO);
+	
+	long countRestaurantCategoryById(Integer id);
 
 }
