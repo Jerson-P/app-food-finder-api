@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.foodfinder.maps.generales.RestaurantCategoryMapper;
+import com.foodfinder.maps.generales.RestaurantDetailMapper;
 import com.foodfinder.repositories.RestaurantCategoryRepository;
 import com.foodfinder.utils.Constants;
 import com.foodfinder.utils.Utils;
@@ -38,12 +39,17 @@ public class RestaurantCategoryServiceImpl implements IRestaurantCategoryService
 	 * Método que permite obtener todos las categorias de los restaurantes.
 	 */
 	@Override
-	public ResponseEntity<ResponseDTO> getRestaurantsCategory() {
-		log.info("Inicio método Obtener la Categoria de los Restaurantes");
-		return new ResponseEntity<ResponseDTO>(Utils.mapearRespuesta(Constants.CONSULTA_EXITOSAMENTE,
-				HttpStatus.OK.value(),
-				RestaurantCategoryMapper.INSTANCE.beanListToDtoList(this.restaurantCategoryRepository.findAll())),
-				HttpStatus.OK);
+	public ResponseEntity<ResponseDTO> getRestaurantsCategory(){
+		log.info("Inicio método Obtener el detalle de los Restaurantes");
+		
+		 ResponseDTO responseDTO = ResponseDTO.builder()
+		            .statusCode(HttpStatus.OK.value())
+		            .message(Constants.CONSULTA_EXITOSAMENTE)
+		            .objectResponse(RestaurantCategoryMapper.INSTANCE.beanListToDtoList(this.restaurantCategoryRepository.findAll()))
+		            .count(this.restaurantCategoryRepository.count())  
+		            .build();
+
+		    return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
 	}
 
 	/**
@@ -97,7 +103,8 @@ public class RestaurantCategoryServiceImpl implements IRestaurantCategoryService
 					HttpStatus.ACCEPTED);
 		}
 	}
-
+	
+	@Override
 	public ResponseEntity<ResponseDTO> update(Integer id, RestaurantCategoryDTO restaurantCategoryDTO) {
 		RestaurantCategory existingRestaurantCategory = restaurantCategoryRepository.findById(id).orElse(null);
 		ResponseDTO responseDTO;
@@ -123,6 +130,11 @@ public class RestaurantCategoryServiceImpl implements IRestaurantCategoryService
 		}
 
 		return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
+	}
+	
+	@Override
+	public long countRestaurantCategoryById(Integer id) {
+		 return restaurantCategoryRepository.countRestaurantCategoryById(id);
 	}
 
 }
