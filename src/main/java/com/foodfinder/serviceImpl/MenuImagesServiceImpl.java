@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.foodfinder.dtos.MenuImagesDTO;
 import com.foodfinder.dtos.ResponseDTO;
+import com.foodfinder.entities.Menu;
 import com.foodfinder.entities.MenuImages;
 import com.foodfinder.maps.generales.MenuImagesMapper;
 import com.foodfinder.repositories.MenuImagesRepository;
+import com.foodfinder.repositories.MenuRepository;
 import com.foodfinder.service.IMenuImagesService;
 import com.foodfinder.utils.Constants;
 import com.foodfinder.utils.Utils;
@@ -32,6 +34,8 @@ import lombok.extern.slf4j.Slf4j;
 public class MenuImagesServiceImpl implements IMenuImagesService{
 	
 	private final MenuImagesRepository menuImagesRepository;
+	
+	private final MenuRepository menuRepository;
 	
 	/**
 	 * Método que permite obtener todos los Menu .
@@ -120,9 +124,13 @@ public class MenuImagesServiceImpl implements IMenuImagesService{
 
         if (existingMenuImages != null) {
         	
-        	existingMenuImages.setRutaimagen(existingMenuImages.getRutaimagen() !=null ? existingMenuImages.getRutaimagen() : existingMenuImages.getRutaimagen());
-        	existingMenuImages.setMenu(existingMenuImages.getMenu() !=null ? existingMenuImages.getMenu() : existingMenuImages.getMenu());
-            
+        	if(menuImages.getMenu() != null) {
+        		Menu menu = menuRepository.findById(menuImages.getMenu().getId()).orElse(null);
+        		existingMenuImages.setMenu(menu);
+        	}
+        	
+        	existingMenuImages.setRutaimagen(menuImages.getRutaimagen() !=null ? menuImages.getRutaimagen() : existingMenuImages.getRutaimagen());
+       
             MenuImagesDTO menuImagesDTOR = MenuImagesMapper.INSTANCE.entityToDto(menuImagesRepository.save(existingMenuImages));
             
             responseDTO = ResponseDTO.builder()
