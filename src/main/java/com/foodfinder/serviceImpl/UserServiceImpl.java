@@ -2,6 +2,7 @@ package com.foodfinder.serviceImpl;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,12 +57,21 @@ public class UserServiceImpl implements IUserService {
 	public ResponseEntity<ResponseDTO> findUserById(Integer id) {
 		log.info("Inicio metodo para obtener usuario por id");
 
-		ResponseDTO responseDTO = ResponseDTO.builder().statusCode(HttpStatus.OK.value())
-				.message(Constants.CONSULTA_EXITOSAMENTE)
-				.objectResponse(UserMapper.INSTANCE.beanListToDtoList(this.userRepository.findAll()))
-				.count(this.userRepository.count()).build();
+		Optional<User> userOptional = userRepository.findById(id);
 
-		return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
+		ResponseDTO responseDTO;
+		if (userOptional.isPresent()) {
+			UserDTO userDTO = UserMapper.INSTANCE.entityToDto(userOptional.get());
+			long count = userRepository.countUserById(id);
+
+			responseDTO = ResponseDTO.builder().statusCode(HttpStatus.OK.value())
+					.message(Constants.CONSULTA_EXITOSAMENTE).objectResponse(userDTO).count(count).build();
+		} else {
+			responseDTO = ResponseDTO.builder().statusCode(HttpStatus.NOT_FOUND.value())
+					.message("El Usuario con Id " + id + " no se encuentra.").objectResponse(null).count(0L).build();
+		}
+
+		return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
 	}
 
 	/**
@@ -91,17 +101,13 @@ public class UserServiceImpl implements IUserService {
 			log.info("Fin metodo de guardar usuario");
 
 			ResponseDTO responseDTO = ResponseDTO.builder().statusCode(HttpStatus.OK.value())
-					.message(Constants.GUARDADO_EXITOSAMENTE)
-					.objectResponse(UserMapper.INSTANCE.beanListToDtoList(this.userRepository.findAll()))
-					.count(this.userRepository.count()).build();
+					.message(Constants.GUARDADO_EXITOSAMENTE).objectResponse(null).count(1L).build();
 
 			return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
 		} else {
 
 			ResponseDTO responseDTO = ResponseDTO.builder().statusCode(HttpStatus.ACCEPTED.value())
-					.message(Constants.USUARIO_NO_PUEDE_GUARDAR)
-					.objectResponse(UserMapper.INSTANCE.beanListToDtoList(this.userRepository.findAll()))
-					.count(this.userRepository.count()).build();
+					.message(Constants.USUARIO_NO_PUEDE_GUARDAR).objectResponse(null).count(0L).build();
 
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(responseDTO);
 		}
@@ -120,6 +126,36 @@ public class UserServiceImpl implements IUserService {
 					Utils.mapearRespuesta(Constants.NO_SE_PUEDE_ELIMINAR, HttpStatus.ACCEPTED.value()),
 					HttpStatus.ACCEPTED);
 		}
+	}
+
+	@Override
+	public ResponseEntity<ResponseDTO> update(Integer id, UserDTO userDTO) {
+		User existingUser = userRepository.findById(id).orElse(null);
+		ResponseDTO responseDTO;
+
+		if (existingUser != null) {
+			existingUser.setUser(userDTO.getUser() != null ? userDTO.getUser() : existingUser.getUser());
+			existingUser
+					.setPassword(userDTO.getPassword() != null ? userDTO.getPassword() : existingUser.getPassword());
+			existingUser.setName(userDTO.getName() != null ? userDTO.getName() : existingUser.getName());
+			existingUser.setIdentificationType(userDTO.getIdentificationType() != null ? userDTO.getIdentificationType()
+					: existingUser.getIdentificationType());
+			existingUser.setIdentification(userDTO.getIdentification() != null ? userDTO.getIdentification()
+					: existingUser.getIdentification());
+			existingUser.setMail(userDTO.getMail() != null ? userDTO.getMail() : existingUser.getMail());
+			existingUser.setCellPhone(
+					userDTO.getCellPhone() != null ? userDTO.getCellPhone() : existingUser.getCellPhone());
+
+			UserDTO userDTOR = UserMapper.INSTANCE.entityToDto(userRepository.save(existingUser));
+
+			responseDTO = ResponseDTO.builder().statusCode(HttpStatus.OK.value())
+					.message(Constants.ACTUALIZADO_EXITOSAMENTE).objectResponse(userDTOR).count(1L).build();
+		} else {
+			responseDTO = ResponseDTO.builder().statusCode(HttpStatus.NOT_FOUND.value())
+					.message("Usuario no encontrado para el Id: " + id).objectResponse(null).count(0L).build();
+		}
+
+		return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
 	}
 
 }

@@ -60,6 +60,20 @@ public class RestaurantController {
 		return this.RestaurantService.getRestaurants();
 	}
 	
+	@Operation(summary = "Operación que permite consultar un restaurante a partir de un id")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Se consulta exitosamente", content = {
+			@Content(mediaType = "application/json", schema = @Schema(implementation = com.foodfinder.dtos.ResponseDTO.class)) }),
+			@ApiResponse(responseCode = "400", description = "La petición no puede ser entendida por el servidor debido a errores de sintaxis, el cliente no debe repetirla no sin antes hacer modificaciones", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseDTO.class)) }),
+			@ApiResponse(responseCode = "404", description = "El recurso solicitado no puede ser encontrado", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseDTO.class)) }),
+			@ApiResponse(responseCode = "500", description = "Se presento una condición inesperada que impidió completar la petición", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = ResponseDTO.class)) }), })
+	@GetMapping("/{id}")
+	public ResponseEntity<ResponseDTO> getMenuCategoryId(@PathVariable Integer id) {
+		return this.RestaurantService.findRestaurantById(id);
+	}
+	
 	@Operation(summary = "Operación que permite crear un restaurante")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Se ha guardado satisfactoriamente",
