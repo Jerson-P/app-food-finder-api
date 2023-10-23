@@ -27,4 +27,6 @@ public interface IMenuService {
 	public ResponseEntity<ResponseDTO> findMenuById(Integer id);
 
 	long countMenuById(Integer id);
+	
+	public ResponseEntity<ResponseDTO> update(Integer id, MenuDTO menu);
 }
