@@ -1,7 +1,6 @@
 package com.foodfinder.serviceImpl;
 
 import java.util.Optional;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -9,8 +8,10 @@ import org.springframework.stereotype.Service;
 import com.foodfinder.dtos.MenuDTO;
 import com.foodfinder.dtos.ResponseDTO;
 import com.foodfinder.entities.Menu;
+import com.foodfinder.entities.Restaurant;
 import com.foodfinder.maps.generales.MenuMapper;
 import com.foodfinder.repositories.MenuRepository;
+import com.foodfinder.repositories.RestaurantRepository;
 import com.foodfinder.service.IMenuService;
 import com.foodfinder.utils.Constants;
 import com.foodfinder.utils.Utils;
@@ -32,6 +33,8 @@ public class MenuServiceImpl implements IMenuService{
 	
 	private final MenuRepository menuRepository;
 	
+	private final RestaurantRepository restaurantRepository;
+
 	/**
 	 * Método que permite obtener todos los Menu .
 	 */
@@ -106,6 +109,47 @@ public class MenuServiceImpl implements IMenuService{
 	@Override
 	public long countMenuById(Integer id) {
 		 return menuRepository.countMenuById(id);
+	}
+
+	@Override
+	public ResponseEntity<ResponseDTO> update(Integer id, MenuDTO menu) {
+		Menu existingMenu = menuRepository.findById(id).orElse(null);
+		
+		ResponseDTO responseDTO;
+		
+        if (existingMenu != null) {
+        	//Menu existingMenuAux = existingMenu.get();
+        	
+        	//modelMapper.map(menu, existingMenu);
+            //System.out.println("modelo maperado -> " + existingMenu);
+        	if(menu.getRestaurant() !=null) {
+    			Restaurant restaurant = restaurantRepository.findById(menu.getRestaurant().getId()).orElse(null);
+    			existingMenu.setRestaurant(restaurant);
+        	}
+        	
+        	existingMenu.setName(menu.getName() != null ? menu.getName() : existingMenu.getName());
+        	existingMenu.setPrice(menu.getPrice() != 0 ? menu.getPrice() : existingMenu.getPrice());
+        	existingMenu.setDescription(menu.getDescription() != null ? menu.getDescription() : existingMenu.getDescription());
+        	existingMenu.setAvailability(menu.getAvailability() != null ? menu.getAvailability() : existingMenu.getAvailability());
+            
+            MenuDTO menuDTOR = MenuMapper.INSTANCE.entityToDto(menuRepository.save(existingMenu));
+            
+            responseDTO = ResponseDTO.builder()
+                    .statusCode(HttpStatus.OK.value())
+                    .message(Constants.ACTUALIZADO_EXITOSAMENTE)
+                    .objectResponse(menuDTOR)
+                    .count(1L)
+                    .build();
+        } else {
+            responseDTO = ResponseDTO.builder()
+                    .statusCode(HttpStatus.NOT_FOUND.value())
+                    .message("Menú no encontrado para el Id: " + id)
+                    .objectResponse(null)
+                    .count(0L)
+                    .build();
+        }
+
+        return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
 	}
 	
 }

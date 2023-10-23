@@ -112,5 +112,35 @@ public class MenuImagesServiceImpl implements IMenuImagesService{
 	public long countMenuImagesById(Integer id) {
 		 return menuImagesRepository.countMenuImagesById(id);
 	}
+
+	@Override
+	public ResponseEntity<ResponseDTO> update(Integer id, MenuImagesDTO menuImages) {
+		MenuImages existingMenuImages = menuImagesRepository.findById(id).orElse(null);
+		ResponseDTO responseDTO;
+
+        if (existingMenuImages != null) {
+        	
+        	existingMenuImages.setRutaimagen(existingMenuImages.getRutaimagen() !=null ? existingMenuImages.getRutaimagen() : existingMenuImages.getRutaimagen());
+        	existingMenuImages.setMenu(existingMenuImages.getMenu() !=null ? existingMenuImages.getMenu() : existingMenuImages.getMenu());
+            
+            MenuImagesDTO menuImagesDTOR = MenuImagesMapper.INSTANCE.entityToDto(menuImagesRepository.save(existingMenuImages));
+            
+            responseDTO = ResponseDTO.builder()
+                    .statusCode(HttpStatus.OK.value())
+                    .message(Constants.ACTUALIZADO_EXITOSAMENTE)
+                    .objectResponse(menuImagesDTOR)
+                    .count(1L)
+                    .build();
+        } else {
+            responseDTO = ResponseDTO.builder()
+                    .statusCode(HttpStatus.NOT_FOUND.value())
+                    .message("Imagen del Menú no encontrada para el Id: " + id)
+                    .objectResponse(null)
+                    .count(0L)
+                    .build();
+        }
+
+        return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
+	}
 	
 }
