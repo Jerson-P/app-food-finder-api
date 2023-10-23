@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.foodfinder.dtos.MenuCategoryDTO;
 import com.foodfinder.dtos.ResponseDTO;
 import com.foodfinder.dtos.RestaurantDetailDTO;
 import com.foodfinder.serviceImpl.RestaurantDetailServiceImpl;
@@ -107,7 +106,7 @@ public class RestaurantDetailController {
 		return this.RestaurantDetailService.findRestaurantDetailById(id);
 	}
 	
-	@Operation(summary = "Operación que permite actualizar una el detalle de un restaurante a partir de un id")
+	@Operation(summary = "Operación que permite actualizar el detalle de un restaurante a partir de un id")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Se consulta exitosamente", content = {
 			@Content(mediaType = "application/json", schema = @Schema(implementation = com.foodfinder.dtos.ResponseDTO.class)) }),
 			@ApiResponse(responseCode = "400", description = "La petición no puede ser entendida por el servidor debido a errores de sintaxis, el cliente no debe repetirla no sin antes hacer modificaciones", content = {
