@@ -7,7 +7,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 import com.foodfinder.dtos.RestaurantCategoryDTO;
-import com.foodfinder.entities.Restaurant;
 import com.foodfinder.entities.RestaurantCategory;
 
 @Mapper
