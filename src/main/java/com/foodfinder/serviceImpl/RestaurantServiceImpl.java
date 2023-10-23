@@ -7,18 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.foodfinder.dtos.ResponseDTO;
-import com.foodfinder.dtos.RestaurantCategoryDTO;
 import com.foodfinder.dtos.RestaurantDTO;
-import com.foodfinder.dtos.RestaurantDetailDTO;
-import com.foodfinder.dtos.UserDTO;
 import com.foodfinder.entities.Restaurant;
 import com.foodfinder.entities.RestaurantCategory;
 import com.foodfinder.entities.RestaurantDetail;
 import com.foodfinder.entities.User;
-import com.foodfinder.maps.generales.RestaurantCategoryMapper;
-import com.foodfinder.maps.generales.RestaurantDetailMapper;
 import com.foodfinder.maps.generales.RestaurantMapper;
-import com.foodfinder.maps.generales.UserMapper;
 import com.foodfinder.repositories.RestaurantCategoryRepository;
 import com.foodfinder.repositories.RestaurantDetailRepository;
 import com.foodfinder.repositories.RestaurantRepository;
@@ -109,48 +103,53 @@ public class RestaurantServiceImpl implements IRestaurantService {
 		}
 	}
 
-	/*@Override
-	public ResponseEntity<ResponseDTO> update(Integer id, RestaurantDTO restaurantDTO, RestaurantCategoryDTO restaurantCategoryDTO, RestaurantDetailDTO restaurnatDetailDTO, UserDTO userDTO){
-		Restaurant existingRestauran = restaurantRepository.findById(id).orElse(null);
-		RestaurantCategory existingRestaurantCategory = restaurantCategoryRepository.findById(id).orElse(null);
-		RestaurantDetail existingRestaurantDetail = restaurantDetailRepository.findById(id).orElse(null);
-		User existingUser = userRepository.findById(id).orElse(null); 
+	public long countRestaurantById(Integer id) {
+		return restaurantRepository.countRestaurantById(id);
+	}
+
+	@Override
+	public ResponseEntity<ResponseDTO> update(Integer id, RestaurantDTO restaurantDTO) {
+		Restaurant existingRestaurant = restaurantRepository.findById(id).orElse(null);
+
 		ResponseDTO responseDTO;
-		
-		if(existingRestauran != null && existingRestaurantCategory != null && existingRestaurantDetail != null && existingUser != null) {
-			existingRestauran.setName(restaurantDTO.getName() != null ? restaurantDTO.getName() : existingRestauran.getName());
-			existingRestauran.setEmail(restaurantDTO.getEmail() != null ? restaurantDTO.getEmail() : existingRestauran.getName());
-			existingRestauran.setAdress(restaurantDTO.getAdress() != null ? restaurantDTO.getAdress() : existingRestauran.getAdress());
-			existingRestauran.setPhone(restaurantDTO.getPhone() != null ? restaurantDTO.getPhone() : existingRestauran.getPhone());
-			existingRestauran.setNit(restaurantDTO.getNit() != null ? restaurantDTO.getNit() : existingRestauran.getNit());
-			existingRestaurantCategory.setName(restaurantCategoryDTO.getName() != null ? restaurantCategoryDTO.getName() : existingRestaurantCategory.getName());
-			existingRestaurantCategory.setDescription(restaurantCategoryDTO.getDescription() != null ? restaurantCategoryDTO.getDescription() : existingRestaurantCategory.getDescription());
-			existingRestaurantDetail.setName(restaurnatDetailDTO.getName() != null ? restaurnatDetailDTO.getName() : existingRestaurantDetail.getName());
-			existingRestaurantDetail.setDescription(restaurnatDetailDTO.getDescription() != null ? restaurnatDetailDTO.getDescription() : existingRestaurantDetail.getDescription());
-			existingRestaurantDetail.setOpeninHours(restaurnatDetailDTO.getOpeninHours() != null ? restaurnatDetailDTO.getOpeninHours() : existingRestaurantDetail.getOpeninHours());
-			existingRestaurantDetail.setWebSite(restaurnatDetailDTO.getWebSite() != null ? restaurnatDetailDTO.getWebSite() : existingRestaurantDetail.getWebSite());
-			existingRestaurantDetail.setLocationMap(restaurnatDetailDTO.getLocationMap() != null ? restaurnatDetailDTO.getLocationMap() : existingRestaurantDetail.getLocationMap());
-			existingUser.setUser(userDTO.getUser() != null ? userDTO.getUser() : existingUser.getUser());
-			existingUser.setPassword(userDTO.getPassword() != null ? userDTO.getPassword() : existingUser.getPassword());
-			existingUser.setName(userDTO.getName() != null ? userDTO.getName() : existingUser.getName());
-			existingUser.setIdentificationType(userDTO.getIdentificationType() != null ? userDTO.getIdentificationType() : existingUser.getIdentificationType());
-			existingUser.setIdentification(userDTO.getIdentification() != null ? userDTO.getIdentification() : existingUser.getIdentification());
-			existingUser.setMail(userDTO.getMail() != null ? userDTO.getMail() : existingUser.getMail());
-			existingUser.setCellPhone(userDTO.getCellPhone() != null ? userDTO.getCellPhone() : existingUser.getCellPhone());
-			
-			RestaurantDTO restaurantDTOR = RestaurantMapper.INSTANCE.entityToDto(restaurantRepository.save(existingRestauran));
-			RestaurantCategoryDTO restaurantCategoryDTOR = RestaurantCategoryMapper.INSTANCE.entityToDto(restaurantCategoryRepository.save(existingRestaurantCategory));
-			RestaurantDetailDTO restauranDetailDTOR = RestaurantDetailMapper.INSTANCE.entityToDto(restaurantDetailRepository.save(existingRestaurantDetail));
-			UserDTO userDTOR = UserMapper.INSTANCE.entityToDto(userRepository.save(existingUser));
-			
+		if (existingRestaurant != null) {
+			if (restaurantDTO.getCategory() != null) {
+				RestaurantCategory restaurantCategory = restaurantCategoryRepository
+						.findById(restaurantDTO.getCategory().getId()).orElse(null);
+				existingRestaurant.setCategory(restaurantCategory);
+			}
+			if (restaurantDTO.getDetail() != null) {
+				RestaurantDetail restaurantDetail = restaurantDetailRepository
+						.findById(restaurantDTO.getDetail().getId()).orElse(null);
+				existingRestaurant.setDetail(restaurantDetail);
+			}
+			if (restaurantDTO.getUser() != null) {
+				User user = userRepository.findById(restaurantDTO.getUser().getId()).orElse(null);
+				existingRestaurant.setUser(user);
+			}
+
+			existingRestaurant
+					.setName(restaurantDTO.getName() != null ? restaurantDTO.getName() : existingRestaurant.getName());
+			existingRestaurant.setEmail(
+					restaurantDTO.getEmail() != null ? restaurantDTO.getEmail() : existingRestaurant.getEmail());
+			existingRestaurant.setAdress(
+					restaurantDTO.getAdress() != null ? restaurantDTO.getAdress() : existingRestaurant.getAdress());
+			existingRestaurant.setPhone(
+					restaurantDTO.getPhone() != null ? restaurantDTO.getPhone() : existingRestaurant.getPhone());
+			existingRestaurant
+					.setNit(restaurantDTO.getNit() != null ? restaurantDTO.getNit() : existingRestaurant.getNit());
+
+			RestaurantDTO restaurantDTOR = RestaurantMapper.INSTANCE
+					.entityToDto(restaurantRepository.save(existingRestaurant));
+
 			responseDTO = ResponseDTO.builder().statusCode(HttpStatus.OK.value())
-					.message(Constants.ACTUALIZADO_EXITOSAMENTE).objectResponse(restaurantDTOR, restaurantCategoryDTOR, restauranDetailDTOR, userDTOR)
-					.count(1L)
+					.message(Constants.ACTUALIZADO_EXITOSAMENTE).objectResponse(restaurantDTOR).count(1L).build();
 		} else {
 			responseDTO = ResponseDTO.builder().statusCode(HttpStatus.NOT_FOUND.value())
 					.message("Restaurante no encontrado con el Id: " + id).objectResponse(null).count(0L).build();
 		}
-		
+
 		return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
-	}*/
+
+	}
 }
