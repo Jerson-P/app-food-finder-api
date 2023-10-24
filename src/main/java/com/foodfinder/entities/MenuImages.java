@@ -42,7 +42,7 @@ public class MenuImages implements Serializable {
 	private Integer id;
 	
 	@Basic(optional = false)
-	@Column(name = "imagen")
+	@Column(name = "rutaImagen")
 	private String rutaimagen;
 	
 	@JoinColumn(name = "id_menu", referencedColumnName = "id_menu")
