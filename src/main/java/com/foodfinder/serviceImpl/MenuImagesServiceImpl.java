@@ -59,9 +59,25 @@ public class MenuImagesServiceImpl implements IMenuImagesService{
 		log.info("Inicio metodo guardar menu ");
 		System.out.println("Inicio metodo guardar menu "+ menuImages);
 		this.menuImagesRepository.save(MenuImagesMapper.INSTANCE.dtoToEntity(menuImages));
+		ResponseDTO responseDTO;
 	
 		log.info("Fin metodo guardar menu");
-		return new ResponseEntity<ResponseDTO>(Utils.mapearRespuesta(Constants.GUARDADO_EXITOSAMENTE, HttpStatus.CREATED.value()), HttpStatus.CREATED);
+		
+		MenuImagesDTO menuImagesDTO = menuImages;
+		
+		MenuImages lastInsertedEntity = menuImagesRepository.findLastInsertedMenuImage();
+		MenuImagesDTO lastInsertedMenu = MenuImagesMapper.INSTANCE.entityToDto(lastInsertedEntity);
+		
+		responseDTO = ResponseDTO.builder()
+                .statusCode(HttpStatus.OK.value())
+                .message(Constants.GUARDADO_EXITOSAMENTE)
+                .objectResponse(lastInsertedMenu)
+                .count(1L)
+                .build();
+		
+		return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
+		
+		//return new ResponseEntity<ResponseDTO>(Utils.mapearRespuesta(Constants.GUARDADO_EXITOSAMENTE, HttpStatus.CREATED.value()), HttpStatus.CREATED, menuImagesDTO);
 
 	}
 
@@ -80,7 +96,7 @@ public class MenuImagesServiceImpl implements IMenuImagesService{
 	}
 	
 	/**
-	 * Método que permite optener las imágenes del menú por Id.
+	 * Método que permite obtener las imágenes del menú por Id.
 	 */
 	
 	@Override
