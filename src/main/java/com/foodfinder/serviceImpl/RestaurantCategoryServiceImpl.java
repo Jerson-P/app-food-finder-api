@@ -58,14 +58,15 @@ public class RestaurantCategoryServiceImpl implements IRestaurantCategoryService
 	public ResponseEntity<ResponseDTO> saveRestaurantCategory(RestaurantCategoryDTO restaurantCategoryDTO) {
 		System.out.println("Inicio metodo guardar restaurantDetail " + restaurantCategoryDTO);
 		this.restaurantCategoryRepository.save(RestaurantCategoryMapper.INSTANCE.dtoToEntity(restaurantCategoryDTO));
-		log.info("Fin metodo guardar restaurantDetail");
-
 		ResponseDTO responseDTO;
 
-		RestaurantCategoryDTO restaurantCategoryDTOR = restaurantCategoryDTO;
+		log.info("Fin metodo guardar restaurantDetail");
+
+		RestaurantCategory lastInsertedEntity = restaurantCategoryRepository.findLastInsertedRestaurantCategory();
+		RestaurantCategoryDTO lastInsertCategory = RestaurantCategoryMapper.INSTANCE.entityToDto(lastInsertedEntity);
 
 		responseDTO = ResponseDTO.builder().statusCode(HttpStatus.OK.value()).message(Constants.GUARDADO_EXITOSAMENTE)
-				.objectResponse(restaurantCategoryDTOR).count(1L).build();
+				.objectResponse(lastInsertCategory).count(1L).build();
 
 		return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
 

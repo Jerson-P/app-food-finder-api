@@ -63,8 +63,6 @@ public class MenuImagesServiceImpl implements IMenuImagesService{
 	
 		log.info("Fin metodo guardar menu");
 		
-		MenuImagesDTO menuImagesDTO = menuImages;
-		
 		MenuImages lastInsertedEntity = menuImagesRepository.findLastInsertedMenuImage();
 		MenuImagesDTO lastInsertedMenu = MenuImagesMapper.INSTANCE.entityToDto(lastInsertedEntity);
 		
