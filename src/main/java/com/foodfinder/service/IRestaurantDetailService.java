@@ -3,8 +3,6 @@ package com.foodfinder.service;
 import org.springframework.http.ResponseEntity;
 
 import com.foodfinder.dtos.ResponseDTO;
-import com.foodfinder.dtos.RestaurantCategoryDTO;
-import com.foodfinder.dtos.RestaurantDTO;
 import com.foodfinder.dtos.RestaurantDetailDTO;
 
 /**
