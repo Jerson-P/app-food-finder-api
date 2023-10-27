@@ -39,7 +39,7 @@ public class RestaurantCategoryServiceImpl implements IRestaurantCategoryService
 	 */
 	@Override
 	public ResponseEntity<ResponseDTO> getRestaurantsCategory() {
-		log.info("Inicio método Obtener el detalle de los Restaurantes");
+		log.info("Inicio método Obtener el detalle de la categoria de un restaurante");
 
 		ResponseDTO responseDTO = ResponseDTO.builder().statusCode(HttpStatus.OK.value())
 				.message(Constants.CONSULTA_EXITOSAMENTE)
@@ -56,14 +56,17 @@ public class RestaurantCategoryServiceImpl implements IRestaurantCategoryService
 
 	@Override
 	public ResponseEntity<ResponseDTO> saveRestaurantCategory(RestaurantCategoryDTO restaurantCategoryDTO) {
-		System.out.println("Inicio metodo guardar restaurantDetail " + restaurantCategoryDTO);
+		System.out.println("Inicio metodo guardar restaurantCategory " + restaurantCategoryDTO);
 		this.restaurantCategoryRepository.save(RestaurantCategoryMapper.INSTANCE.dtoToEntity(restaurantCategoryDTO));
 		ResponseDTO responseDTO;
 
-		log.info("Fin metodo guardar restaurantDetail");
+		log.info("Fin metodo guardar restaurantCategory");
 
-		RestaurantCategory lastInsertedEntity = restaurantCategoryRepository.findLastInsertedRestaurantCategory();
-		RestaurantCategoryDTO lastInsertCategory = RestaurantCategoryMapper.INSTANCE.entityToDto(lastInsertedEntity);
+		RestaurantCategory restaurantCategoryF = restaurantCategoryRepository.findByName(restaurantCategoryDTO.getName());
+		System.out.println("restaurant Category F " + restaurantCategoryF);
+		
+		RestaurantCategoryDTO lastInsertCategory = RestaurantCategoryMapper.INSTANCE.entityToDto(restaurantCategoryF);
+		System.out.println("lastInsertCategory Objeto " + lastInsertCategory);
 
 		responseDTO = ResponseDTO.builder().statusCode(HttpStatus.OK.value()).message(Constants.GUARDADO_EXITOSAMENTE)
 				.objectResponse(lastInsertCategory).count(1L).build();
@@ -141,6 +144,11 @@ public class RestaurantCategoryServiceImpl implements IRestaurantCategoryService
 	@Override
 	public long countRestaurantCategoryById(Integer id) {
 		return restaurantCategoryRepository.countRestaurantCategoryById(id);
+	}
+
+	@Override
+	public RestaurantCategory findByName(String name) {
+		return restaurantCategoryRepository.findByName(name);
 	}
 
 }
