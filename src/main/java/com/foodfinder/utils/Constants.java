@@ -33,7 +33,7 @@ public class Constants {
 		public static final String NO_EXISTE_UBICACION ="No existe ubicaciones";
 	public static final String NO_EXISTE_CIUDAD ="No existe ciudad";
 	
-	public static final String POR_FAVOR_VALIDAR_DATOS_NO_PUEDE_DUPLICAR_VALORES="Por favor validar ya existe un registro con los datos ingresados";
+	public static final String POR_FAVOR_VALIDAR_DATOS_NO_PUEDE_DUPLICAR_VALORES="Por favor validar el nombre, ya existe un registro con los datos ingresados";
 	
 	public static final String NO_SE_PUEDE_ELIMINAR_REGISTRO_TIENE_ASOCIADO_DATOS ="No se puede eliminar el registro tiene asociado datos";
 	

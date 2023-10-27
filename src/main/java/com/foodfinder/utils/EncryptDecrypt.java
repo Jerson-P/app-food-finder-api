@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class EncriptarDesencriptar {
+public class EncryptDecrypt {
 
 	private static String secretKey = "";
 	
@@ -103,7 +103,7 @@ public class EncriptarDesencriptar {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		EncriptarDesencriptar ed = new EncriptarDesencriptar();
+		EncryptDecrypt ed = new EncryptDecrypt();
 		System.out.println("clave " + ed.encriptar("welcome1"));
 	}
 
