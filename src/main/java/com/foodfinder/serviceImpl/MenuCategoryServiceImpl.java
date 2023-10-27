@@ -54,8 +54,18 @@ public class MenuCategoryServiceImpl implements IMenuCategoryService {
 		this.menuCategoryRepository.save(MenuCategoryMapper.INSTANCE.dtoToEntity(menuCategory));
 
 		log.info("Fin metodo guardar categoria menu");
-		return new ResponseEntity<ResponseDTO>(
-				Utils.mapearRespuesta(Constants.GUARDADO_EXITOSAMENTE, HttpStatus.CREATED.value()), HttpStatus.CREATED);
+		ResponseDTO responseDTO;
+		
+		MenuCategory MenuCategoryF = menuCategoryRepository.findByName(menuCategory.getName());
+		System.out.println("MenuCategoryF " + MenuCategoryF);
+		
+		MenuCategoryDTO lastInsertMenuCategory = MenuCategoryMapper.INSTANCE.entityToDto(MenuCategoryF);
+		System.out.println("lastInsertMenuCategory Objeto " + lastInsertMenuCategory);
+
+		responseDTO = ResponseDTO.builder().statusCode(HttpStatus.OK.value()).message(Constants.GUARDADO_EXITOSAMENTE)
+				.objectResponse(lastInsertMenuCategory).count(1L).build();
+
+		return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
 	}
 
 	@Override
@@ -124,6 +134,11 @@ public class MenuCategoryServiceImpl implements IMenuCategoryService {
 		}
 
 		return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
+	}
+
+	@Override
+	public MenuCategory findByName(String name) {
+		return menuCategoryRepository.findByName(name);
 	}
 
 }

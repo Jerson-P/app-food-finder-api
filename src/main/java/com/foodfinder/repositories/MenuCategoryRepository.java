@@ -18,4 +18,6 @@ public interface MenuCategoryRepository extends JpaRepository<MenuCategory, Inte
 
 	long countMenuCategoryById(Integer id);
 	
+	public MenuCategory findByName(String name);
+	
 }

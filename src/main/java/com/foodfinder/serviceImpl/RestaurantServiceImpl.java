@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 
 import com.foodfinder.dtos.ResponseDTO;
 import com.foodfinder.dtos.RestaurantDTO;
+import com.foodfinder.dtos.RestaurantDetailDTO;
 import com.foodfinder.entities.Restaurant;
 import com.foodfinder.entities.RestaurantCategory;
 import com.foodfinder.entities.RestaurantDetail;
 import com.foodfinder.entities.User;
+import com.foodfinder.maps.generales.RestaurantDetailMapper;
 import com.foodfinder.maps.generales.RestaurantMapper;
 import com.foodfinder.repositories.RestaurantCategoryRepository;
 import com.foodfinder.repositories.RestaurantDetailRepository;
@@ -84,8 +86,18 @@ public class RestaurantServiceImpl implements IRestaurantService {
 		this.restaurantRepository.save(RestaurantMapper.INSTANCE.dtoToEntity(restaurant));
 
 		log.info("Fin metodo guardar restaurante");
-		return new ResponseEntity<ResponseDTO>(
-				Utils.mapearRespuesta(Constants.GUARDADO_EXITOSAMENTE, HttpStatus.CREATED.value()), HttpStatus.CREATED);
+		ResponseDTO responseDTO;
+		
+		Restaurant restaurantF = restaurantRepository.findByName(restaurant.getName());
+		System.out.println("restaurantF " + restaurantF);
+		
+		RestaurantDTO lastInsertrestaurant = RestaurantMapper.INSTANCE.entityToDto(restaurantF);
+		System.out.println("lastInsertrestaurant Objeto " + lastInsertrestaurant);
+
+		responseDTO = ResponseDTO.builder().statusCode(HttpStatus.OK.value()).message(Constants.GUARDADO_EXITOSAMENTE)
+				.objectResponse(lastInsertrestaurant).count(1L).build();
+
+		return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
 
 	}
 
@@ -151,5 +163,10 @@ public class RestaurantServiceImpl implements IRestaurantService {
 
 		return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
 
+	}
+
+	@Override
+	public Restaurant findByName(String name) {
+		return restaurantRepository.findByName(name);
 	}
 }

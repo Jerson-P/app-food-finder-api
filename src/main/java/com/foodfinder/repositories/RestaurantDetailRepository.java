@@ -18,5 +18,7 @@ import com.foodfinder.entities.RestaurantDetail;
 public interface RestaurantDetailRepository extends JpaRepository<RestaurantDetail, Integer>{
 	
 	long countRestaurantDetailById(Integer id);
+	
+	public RestaurantDetail findByName(String name);
 
 }
