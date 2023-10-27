@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.foodfinder.dtos.MenuCategoryDTO;
 import com.foodfinder.dtos.ResponseDTO;
+import com.foodfinder.entities.MenuCategory;
 
 /**
  * @author Luis Montoya
@@ -29,4 +30,6 @@ public interface IMenuCategoryService {
 	long countMenuCategoryById(Integer menuId);
 	
 	public ResponseEntity<ResponseDTO> update(Integer id, MenuCategoryDTO menuCategoryDTO);
+	
+	public MenuCategory findByName(String name);
 }

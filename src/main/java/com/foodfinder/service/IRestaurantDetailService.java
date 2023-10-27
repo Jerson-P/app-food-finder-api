@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.foodfinder.dtos.ResponseDTO;
 import com.foodfinder.dtos.RestaurantDetailDTO;
+import com.foodfinder.entities.RestaurantDetail;
 
 /**
  * @author Jerson Peña
@@ -25,5 +26,7 @@ public interface IRestaurantDetailService {
 	public ResponseEntity<ResponseDTO> update(Integer id, RestaurantDetailDTO restaurantDetailDTO);
 
 	long countRestaurantDetailById(Integer id);
+	
+	public RestaurantDetail findByName(String name);
 	
 }

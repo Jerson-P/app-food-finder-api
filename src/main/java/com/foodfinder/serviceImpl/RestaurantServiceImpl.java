@@ -84,8 +84,18 @@ public class RestaurantServiceImpl implements IRestaurantService {
 		this.restaurantRepository.save(RestaurantMapper.INSTANCE.dtoToEntity(restaurant));
 
 		log.info("Fin metodo guardar restaurante");
-		return new ResponseEntity<ResponseDTO>(
-				Utils.mapearRespuesta(Constants.GUARDADO_EXITOSAMENTE, HttpStatus.CREATED.value()), HttpStatus.CREATED);
+		ResponseDTO responseDTO;
+		
+		Restaurant restaurantF = restaurantRepository.findByName(restaurant.getName());
+		System.out.println("restaurantF " + restaurantF);
+		
+		RestaurantDTO lastInsertrestaurant = RestaurantMapper.INSTANCE.entityToDto(restaurantF);
+		System.out.println("lastInsertrestaurant Objeto " + lastInsertrestaurant);
+
+		responseDTO = ResponseDTO.builder().statusCode(HttpStatus.OK.value()).message(Constants.GUARDADO_EXITOSAMENTE)
+				.objectResponse(lastInsertrestaurant).count(1L).build();
+
+		return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
 
 	}
 
@@ -151,5 +161,10 @@ public class RestaurantServiceImpl implements IRestaurantService {
 
 		return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
 
+	}
+
+	@Override
+	public Restaurant findByName(String name) {
+		return restaurantRepository.findByName(name);
 	}
 }

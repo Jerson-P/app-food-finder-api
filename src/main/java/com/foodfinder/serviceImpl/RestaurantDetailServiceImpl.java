@@ -7,8 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.foodfinder.dtos.ResponseDTO;
+import com.foodfinder.dtos.RestaurantCategoryDTO;
 import com.foodfinder.dtos.RestaurantDetailDTO;
+import com.foodfinder.entities.RestaurantCategory;
 import com.foodfinder.entities.RestaurantDetail;
+import com.foodfinder.maps.generales.RestaurantCategoryMapper;
 import com.foodfinder.maps.generales.RestaurantDetailMapper;
 import com.foodfinder.repositories.RestaurantDetailRepository;
 import com.foodfinder.service.IRestaurantDetailService;
@@ -53,10 +56,21 @@ public class RestaurantDetailServiceImpl implements IRestaurantDetailService {
 		System.out.println("Inicio metodo guardar restaurantDetail " + restaurantDetail);
 		this.restaurantDetailRepository.save(RestaurantDetailMapper.INSTANCE.dtoToEntity(restaurantDetail));
 		log.info("Fin metodo guardar restaurantDetail");
-		return new ResponseEntity<ResponseDTO>(
-				Utils.mapearRespuesta(Constants.GUARDADO_EXITOSAMENTE, HttpStatus.CREATED.value()), HttpStatus.CREATED);
+		ResponseDTO responseDTO;
+		
+		RestaurantDetail restaurantDetailF = restaurantDetailRepository.findByName(restaurantDetail.getName());
+		System.out.println("restaurantDetailF " + restaurantDetailF);
+		
+		RestaurantDetailDTO lastInsertDetail = RestaurantDetailMapper.INSTANCE.entityToDto(restaurantDetailF);
+		System.out.println("lastInsertDetail Objeto " + lastInsertDetail);
+
+		responseDTO = ResponseDTO.builder().statusCode(HttpStatus.OK.value()).message(Constants.GUARDADO_EXITOSAMENTE)
+				.objectResponse(lastInsertDetail).count(1L).build();
+
+		return ResponseEntity.status(responseDTO.getStatusCode()).body(responseDTO);
 
 	}
+	
 
 	@Override
 	public ResponseEntity<ResponseDTO> delete(Integer id) {
@@ -129,6 +143,11 @@ public class RestaurantDetailServiceImpl implements IRestaurantDetailService {
 	@Override
 	public long countRestaurantDetailById(Integer id) {
 		return restaurantDetailRepository.countRestaurantDetailById(id);
+	}
+
+	@Override
+	public RestaurantDetail findByName(String name) {
+		return restaurantDetailRepository.findByName(name);
 	}
 
 }
