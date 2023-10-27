@@ -8,12 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.foodfinder.dtos.ResponseDTO;
 import com.foodfinder.dtos.RestaurantDTO;
-import com.foodfinder.dtos.RestaurantDetailDTO;
 import com.foodfinder.entities.Restaurant;
 import com.foodfinder.entities.RestaurantCategory;
 import com.foodfinder.entities.RestaurantDetail;
 import com.foodfinder.entities.User;
-import com.foodfinder.maps.generales.RestaurantDetailMapper;
 import com.foodfinder.maps.generales.RestaurantMapper;
 import com.foodfinder.repositories.RestaurantCategoryRepository;
 import com.foodfinder.repositories.RestaurantDetailRepository;
